@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+ vite:
+   container_name: home-budget-node
+   build: docker/front
+   ports:
+     - "80:8000"
+   working_dir: /srv/app
+   volumes:
+     - ./front:/srv/app
+   tty: true
