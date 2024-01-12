@@ -1,30 +1,30 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import ContentRow from './components/ContentRow.vue';
+import AddExpense from './components/Expenses/AddExpense.vue';
+import Expense from './components/Expenses/Expense.vue';
+import Sidebar from './components/Sidebar/Sidebar.vue';
+
 </script>
 
 <template>
-  <div class="bg-sky-400">
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="flex">
+    <Sidebar/>
+
+    <div class="w-full p-10">
+      <h2 class="mt-5 mb-2 text-3xl font-bold">Add a new expense</h2>
+      <ContentRow>
+        <AddExpense class="mx-auto w-full"/>
+      </ContentRow>
+
+      <h2 class="mt-5 mb-2 text-3xl font-bold">Last Expenses</h2>
+      <ContentRow class="">
+        <h3 class="text-center text-2xl font-bold text-purple-500 mb-2">24.10.2023</h3>
+        <Expense/>
+        <hr>
+        <Expense/>
+      </ContentRow>
+
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
