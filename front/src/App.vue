@@ -11,12 +11,12 @@ import Sidebar from './components/Sidebar/Sidebar.vue';
     <Sidebar/>
 
     <div class="w-full p-10">
-      <h2 class="mt-5 mb-2 text-3xl font-bold">Add a new expense</h2>
+      <h2 class="mt-5 mb-2 text-3xl font-bold">{{ $t('component.addExpense.header') }}</h2>
       <ContentRow>
         <AddExpense class="mx-auto w-full"/>
       </ContentRow>
 
-      <h2 class="mt-5 mb-2 text-3xl font-bold">Last Expenses</h2>
+      <h2 class="mt-5 mb-2 text-3xl font-bold">{{ $t('component.expense.header') }}</h2>
       <ContentRow class="">
         <h3 class="text-center text-2xl font-bold text-purple-500 mb-2">24.10.2023</h3>
         <Expense/>

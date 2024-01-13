@@ -1,0 +1,19 @@
+{
+    "nav": {
+        "home": "Home"
+    },
+    "component": {
+        "addExpense": {
+            "expense": "Expense",
+            "amount": "Amount",
+            "category": "Category",
+            "persons": "Persons",
+            "whim": "Whim",
+            "add": "Add"
+        },
+        "expense": {
+            "header": "Last expenses",
+            "whim": "Whim"
+        }
+    }
+}

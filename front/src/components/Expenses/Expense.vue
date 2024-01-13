@@ -13,7 +13,7 @@
         </div>
         <div class="text-right">
             <h4 class="text-lg font-medium">-24.99 zł</h4>
-            <span class="font-light">Zachcianka</span>
+            <span class="font-light">{{ $t('component.expense.whim') }}</span>
         </div>
     </div>
 </template>

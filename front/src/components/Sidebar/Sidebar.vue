@@ -27,7 +27,7 @@ provide('collapsed', collapsed);
             <hr class="rounded my-2">
 
             <div class="*:py-1.5">
-                <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
+                <SidebarLink to="/" icon="fas fa-home">{{ $t('nav.home') }}</SidebarLink>
                 <SidebarLink to="/dashboard" icon="fas fa-columns">Dashboard Dashboard Dashboard</SidebarLink>
                 <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
                 <SidebarLink to="/friends" icon="fas fa-users">Friends</SidebarLink>

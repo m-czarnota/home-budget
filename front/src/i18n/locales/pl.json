@@ -1,0 +1,20 @@
+{
+    "nav": {
+        "home": "Dom"
+    },
+    "component": {
+        "addExpense": {
+            "header": "Dodaj nowy wydatek",
+            "expense": "Wydatek",
+            "amount": "Kwota",
+            "category": "Kategoria",
+            "persons": "Osoby",
+            "whim": "Zachcianka",
+            "add": "Dodaj"
+        },
+        "expense": {
+            "header": "Ostatnie wydatki",
+            "whim": "Zachcianka"
+        }
+    }
+}
