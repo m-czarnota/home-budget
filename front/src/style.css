@@ -15,18 +15,23 @@
     @apply w-full p-3 bg-slate-50 rounded-md flex flex-col gap-3 h-fit;
   }
 
-  form input[type="text"], form input[type="number"], form input[type="checkbox"], form select, form button[type="submit"] {
-    @apply border-2 border-emerald-700 rounded-full py-1 px-4;
+  form input[type="text"], 
+  form input[type="number"], 
+  form input[type="checkbox"], 
+  form select, 
+  form button[type="submit"],
+  .category-list input {
+    @apply border-2 border-purple-700 rounded-full py-1 px-4;
     @apply transition duration-150;
-    @apply hover:border-emerald-500;  
-    @apply focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-700;
-    @apply hover:shadow-md focus:shadow-md hover:shadow-emerald-100 focus:shadow-emerald-100;
+    @apply hover:border-purple-500;  
+    @apply focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-700;
+    @apply hover:shadow-md focus:shadow-md hover:shadow-purple-100 focus:shadow-purple-100;
   }
 
   form button[type="submit"] {
     @apply w-1/2 mx-auto;
-    @apply hover:bg-emerald-100 hover:shadow-lg;
-    @apply focus:bg-emerald-100 focus:shadow-lg;
+    @apply hover:bg-purple-100 hover:shadow-lg;
+    @apply focus:bg-purple-100 focus:shadow-lg;
   }
 
   form .form-row, form .form-row-inline {
@@ -39,5 +44,13 @@
 
   nav hr {
     @apply my-3 rounded;
+  }
+
+  .category-list input {
+    @apply py-1;
+  }
+
+  .subcategory-list input {
+    @apply py-0.5;
   }
 }

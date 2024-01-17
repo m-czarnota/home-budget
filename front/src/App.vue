@@ -1,8 +1,9 @@
 <script setup>
-import ContentRow from './components/ContentRow.vue';
-import AddExpense from './components/Expenses/AddExpense.vue';
-import Expense from './components/Expenses/Expense.vue';
+import DescribedContentRow from './components/DescribedContentRow.vue';
+import AddExpense from './components/Expense/AddExpense.vue';
+import ExpenseList from './components/Expense/ExpenseList.vue';
 import Sidebar from './components/Sidebar/Sidebar.vue';
+import CategoryList from './components/Category/CategoryList.vue';
 
 </script>
 
@@ -11,18 +12,19 @@ import Sidebar from './components/Sidebar/Sidebar.vue';
     <Sidebar/>
 
     <div class="w-full p-10">
-      <h2 class="mt-5 mb-2 text-3xl font-bold">{{ $t('component.addExpense.header') }}</h2>
-      <ContentRow>
-        <AddExpense class="mx-auto w-full"/>
-      </ContentRow>
+      <DescribedContentRow>
+        <template #header>
+          <h2 class="mt-5 mb-2 text-3xl font-bold">{{ $t('component.addExpense.header') }}</h2>
+        </template>
+        <template #content>
+          <AddExpense class="mx-auto w-full"/>
+        </template>
+      </DescribedContentRow>
 
-      <h2 class="mt-5 mb-2 text-3xl font-bold">{{ $t('component.expense.header') }}</h2>
-      <ContentRow class="">
-        <h3 class="text-center text-2xl font-bold text-purple-500 mb-2">24.10.2023</h3>
-        <Expense/>
-        <hr>
-        <Expense/>
-      </ContentRow>
+      <ExpenseList/>
+
+
+      <CategoryList/>
 
     </div>
   </div>

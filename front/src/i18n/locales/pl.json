@@ -15,6 +15,25 @@
         "expense": {
             "header": "Ostatnie wydatki",
             "whim": "Zachcianka"
+        },
+        "categoryList": {
+            "header": "Kategorie",
+            "category": {
+                "add": "Dodaj nową kategorię",
+                "create": "Stwórz nową kategorię",
+                "delete": "Usuń kategorię",
+                "addSubcategory": "Dodaj nową subkategorię",
+                "edit": "Edytuj kategorię",
+                "change": "Zmień kategorię",
+                "showSubcategories": "Pokaż subkategorie",
+                "hideSubcategories": "Ukryj subkategorie"
+            },
+            "subcategory": {
+                "create": "Utwórz nową subkategorię",
+                "delete": "Usuń subkategorię",
+                "change": "Zmień subkategorię",
+                "edit": "Edytuj subkategorię"
+            }
         }
     }
 }

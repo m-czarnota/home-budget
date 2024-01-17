@@ -14,6 +14,25 @@
         "expense": {
             "header": "Last expenses",
             "whim": "Whim"
+        },
+        "categoryList": {
+            "header": "Categories",
+            "category": {
+                "add": "Add a new category",
+                "create": "Create a new category",
+                "delete": "Delete the category",
+                "addSubcategory": "Add a new subcategory",
+                "edit": "Edit the category",
+                "change": "Change the category",
+                "showSubcategories": "Show subcategories",
+                "hideSubcategories": "Hide subcategories"
+            },
+            "subcategory": {
+                "create": "Create a new subcategory",
+                "delete": "Delete the subcategory",
+                "change": "Change the subcategory",
+                "edit": "Edit the subcategory"
+            }
         }
     }
 }
