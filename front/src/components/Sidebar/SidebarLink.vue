@@ -1,31 +1,46 @@
 <script setup>
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
+import { useRouter } from 'vue-router';
 
-defineProps({
+const props = defineProps({
     to: {
-        type: String,
+        type: Object,
         required: true,
     },
     icon: {
         type: String,
         required: true,
     },
+    name: {
+        type: String,
+        required: true,
+    },
 });
 
-const isActive = false;
+const router = useRouter();
+const isActive = computed(() => {
+    const currentRouteName = router.currentRoute.value.name;
+
+    return currentRouteName === props.to.name;
+});
 
 const collapsed = inject('collapsed');
 </script>
 
 <template>
-    <router-link :to="to" class="flex items-center cursor-pointer font-light select-none rounded text-slate-100 transition-all duration-150 hover:underline hover:text-white active:underline" :class="{ active: isActive }">
-        <!-- <i class="shrink-0 w-5" :class="icon" /> -->
+    <RouterLink 
+        :to="to.path" 
+        class="flex gap-2 items-center cursor-pointer font-light select-none rounded text-slate-100 transition-all duration-150 hover:underline hover:text-white active:underline" 
+        :class="{ 'bg-purple-500/25': isActive, 'px-2': !collapsed }"
+        :title="name"
+    >
+        <font-awesome-icon :icon="icon" class="shrink-0 w-5" />
         <Transition name="fade">
             <span v-if="!collapsed">
-                <slot />
+                {{ name }}
             </span>
         </Transition>
-    </router-link>
+    </RouterLink>
 </template>
 
 <style scoped>

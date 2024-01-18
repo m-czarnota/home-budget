@@ -1,3 +1,5 @@
+<script setup></script>
+
 <template>
     <!-- <h2 class="text-2xl font-bold text-purple-500">24.10.2023</h2> -->
     <div class="grid grid-cols-3 px-5 py-3 border-2 rounded border-transparent hover:border-purple-400 hover:bg-purple-50">

@@ -8,6 +8,10 @@ import {
     faMinus, 
     faTrash,
     faFileCirclePlus,
+    faHouse,
+    faMoneyBillTrendUp,
+    faFolderTree,
+    faAnglesLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faCircleCheck,
@@ -21,6 +25,10 @@ library.add(
     faMinus, 
     faTrash,
     faFileCirclePlus,
+    faHouse,
+    faMoneyBillTrendUp,
+    faFolderTree,
+    faAnglesLeft,
 );
 library.add(
     faCircleCheck,

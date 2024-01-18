@@ -1,6 +1,7 @@
 <script setup>
 import SidebarLink from './SidebarLink.vue';
 import { ref, computed, provide } from 'vue';
+import { RouteGenerator } from '../../router/RouteGenerator';
 
 const collapsed = ref(false);
 const toggleSidebar = () => (collapsed.value = !collapsed.value);
@@ -26,12 +27,10 @@ provide('collapsed', collapsed);
             </h1>
             <hr class="rounded my-2">
 
-            <div class="*:py-1.5">
-                <SidebarLink to="/" icon="fas fa-home">{{ $t('nav.home') }}</SidebarLink>
-                <SidebarLink to="/dashboard" icon="fas fa-columns">Dashboard Dashboard Dashboard</SidebarLink>
-                <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
-                <SidebarLink to="/friends" icon="fas fa-users">Friends</SidebarLink>
-                <SidebarLink to="/image" icon="fas fa-image">Images</SidebarLink>
+            <div class="*:py-1.5 gap-2 flex flex-col">
+                <SidebarLink :to="RouteGenerator.generateRoute('home')" icon="fa-solid fa-house" :name="$t('nav.home')"/>
+                <SidebarLink :to="RouteGenerator.generateRoute('expenses')" icon="fa-solid fa-money-bill-trend-up" :name="$t('nav.expenses')"/>
+                <SidebarLink :to="RouteGenerator.generateRoute('category_list')" icon="fa-solid fa-folder-tree" :name="$t('nav.categories')"/>
             </div>
         </div>
 
@@ -40,8 +39,7 @@ provide('collapsed', collapsed);
             class="flex justify-center items-center px-3 border-2 rounded-full border-transparent transition duration-150 hover:border-white"
             @click="toggleSidebar"
         >
-            <span :class="{ 'rotate-180': collapsed }">&lt;</span>
-            <!-- <i class="fas fa-angle-double-left" /> -->
+            <font-awesome-icon icon="fa-solid fa-angles-left" :class="{ 'rotate-180': collapsed }"/>
         </button>
     </nav>
 </template>

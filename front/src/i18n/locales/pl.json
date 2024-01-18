@@ -1,6 +1,8 @@
 {
     "nav": {
-        "home": "Dom"
+        "home": "Strona główna",
+        "expenses": "Wydatki",
+        "categories": "Kategorie"
     },
     "component": {
         "addExpense": {

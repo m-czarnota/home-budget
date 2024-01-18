@@ -1,3 +1,5 @@
+<script setup></script>
+
 <template>
     <form class="mx-auto p-10 w-1/2">
         <div class="form-row">

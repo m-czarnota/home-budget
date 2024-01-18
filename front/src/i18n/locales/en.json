@@ -1,6 +1,8 @@
 {
     "nav": {
-        "home": "Home"
+        "home": "Home",
+        "expenses": "Expenses",
+        "categories": "Categories"
     },
     "component": {
         "addExpense": {
