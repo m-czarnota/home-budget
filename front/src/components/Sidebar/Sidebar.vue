@@ -29,8 +29,9 @@ provide('collapsed', collapsed);
 
             <div class="*:py-1.5 gap-2 flex flex-col">
                 <SidebarLink :to="RouteGenerator.generateRoute('home')" icon="fa-solid fa-house" :name="$t('nav.home')"/>
-                <SidebarLink :to="RouteGenerator.generateRoute('expenses')" icon="fa-solid fa-money-bill-trend-up" :name="$t('nav.expenses')"/>
+                <SidebarLink :to="RouteGenerator.generateRoute('expenses')" icon="fa-solid fa-receipt" :name="$t('nav.expenses')"/>
                 <SidebarLink :to="RouteGenerator.generateRoute('category_list')" icon="fa-solid fa-folder-tree" :name="$t('nav.categories')"/>
+                <SidebarLink :to="RouteGenerator.generateRoute('prepare_budget')" icon="fa-solid fa-sack-dollar" :name="$t('nav.prepareBudget')"/>
             </div>
         </div>
 

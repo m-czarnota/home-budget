@@ -13,6 +13,10 @@ const routes = {
         path: '/category-list',
         component: () => import('../views/CategoryView.vue'),
     },
+    prepare_budget: {
+        path: '/prepare-budget',
+        component: () => import('../views/PrepareBudgetView.vue'),
+    },
 };
 
 export default routes;

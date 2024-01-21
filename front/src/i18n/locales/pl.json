@@ -2,7 +2,8 @@
     "nav": {
         "home": "Strona główna",
         "expenses": "Wydatki",
-        "categories": "Kategorie"
+        "categories": "Kategorie",
+        "prepareBudget": "Przygotuj budżet"
     },
     "component": {
         "addExpense": {
@@ -36,6 +37,16 @@
                 "change": "Zmień subkategorię",
                 "edit": "Edytuj subkategorię"
             }
+        },
+        "budgetCreate": {
+            "form": {
+                "create": "Utwórz budżet"
+            }
+        }
+    },
+    "view": {
+        "prepareBudget": {
+            "header": "Przygotuj budżet na następny miesiąc"
         }
     }
 }

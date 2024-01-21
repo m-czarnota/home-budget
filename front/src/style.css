@@ -21,11 +21,18 @@
   form select, 
   form button[type="submit"],
   .category-list input {
-    @apply border-2 border-purple-700 rounded-full py-1 px-4;
+    @apply border border-purple-600 rounded-full py-1 px-4;
     @apply transition duration-150;
     @apply hover:border-purple-500;  
     @apply focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-700;
     @apply hover:shadow-md focus:shadow-md hover:shadow-purple-100 focus:shadow-purple-100;
+  }
+
+  form input:disabled {
+    @apply hover:shadow-none focus:shadow-none;
+    @apply hover:border-purple-900;
+    @apply cursor-not-allowed;
+    @apply border-purple-900;
   }
 
   form button[type="submit"] {

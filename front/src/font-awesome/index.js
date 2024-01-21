@@ -12,6 +12,8 @@ import {
     faMoneyBillTrendUp,
     faFolderTree,
     faAnglesLeft,
+    faSackDollar,
+    faReceipt,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faCircleCheck,
@@ -29,6 +31,8 @@ library.add(
     faMoneyBillTrendUp,
     faFolderTree,
     faAnglesLeft,
+    faSackDollar,
+    faReceipt,
 );
 library.add(
     faCircleCheck,

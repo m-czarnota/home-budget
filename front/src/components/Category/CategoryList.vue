@@ -2,6 +2,7 @@
 import { reactive, ref } from 'vue';
 import { Category } from './Category';
 import { SubCategory } from './SubCategory';
+import { CategoryFactory } from './CategoryFactory';
 
 const response = {
     'Zakupy spożywcze': [
@@ -11,15 +12,7 @@ const response = {
 };
 
 // ------------------- mapping categories from response to objects -------------------
-const categoriesObject = [];
-for (const [name, subcategories] of Object.entries(response)) {
-    const category = new Category(name);
-    category.subcategories = subcategories.map((subName) => new SubCategory(subName, category));
-    
-
-    categoriesObject.push(category);
-}
-const categories = reactive(categoriesObject);
+const categories = reactive(CategoryFactory.createFromResponse(response));
 
 // ------------------- viewing categories and subcategories -------------------
 const canViewSubcategories = (category) => {
