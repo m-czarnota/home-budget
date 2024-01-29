@@ -3,7 +3,8 @@
         "home": "Strona główna",
         "expenses": "Wydatki",
         "categories": "Kategorie",
-        "prepareBudget": "Przygotuj budżet"
+        "prepareBudget": "Przygotuj budżet",
+        "irregularExpenses": "Nieregularne wydatki"
     },
     "component": {
         "addExpense": {
@@ -42,11 +43,26 @@
             "form": {
                 "create": "Utwórz budżet"
             }
+        },
+        "currentIrregularExpenses": {
+            "onCurrentYear": "Na bieżący rok",
+            "unsavedChanges": "Masz niezapisane zmiany!",
+            "form": {
+                "whim": "Zachcianka",
+                "addNew": "Dodaj nowy",
+                "save": "Zapisz"
+            }
         }
     },
     "view": {
         "prepareBudget": {
             "header": "Przygotuj budżet na następny miesiąc"
+        },
+        "irregularExpenses": {
+            "header": "Nieregularne wydatki"
         }
+    },
+    "form": {
+        "unsavedChanges": "Niezapisane zmiany"
     }
 }

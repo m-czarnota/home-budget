@@ -14,6 +14,9 @@ import {
     faAnglesLeft,
     faSackDollar,
     faReceipt,
+    faBars,
+    faScaleUnbalancedFlip,
+    faFloppyDisk,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faCircleCheck,
@@ -33,6 +36,9 @@ library.add(
     faAnglesLeft,
     faSackDollar,
     faReceipt,
+    faBars,
+    faScaleUnbalancedFlip,
+    faFloppyDisk,
 );
 library.add(
     faCircleCheck,

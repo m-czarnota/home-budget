@@ -17,6 +17,10 @@ const routes = {
         path: '/prepare-budget',
         component: () => import('../views/PrepareBudgetView.vue'),
     },
+    irregular_expenses: {
+        path: '/irregular-expenses',
+        component: () => import('../views/IrregularExpensesView.vue')
+    }
 };
 
 export default routes;

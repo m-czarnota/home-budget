@@ -1,12 +1,17 @@
 <script setup>
 import { reactive, ref } from 'vue';
+import draggable from 'vuedraggable';
+import { useI18n } from 'vue-i18n';
 import { Category } from './Category';
 import { SubCategory } from './SubCategory';
 import { CategoryFactory } from './CategoryFactory';
 
+const { t } = useI18n();
+
 const response = {
     'Zakupy spożywcze': [
         'Picie',
+        'Picie i jedzenie',
     ],
     'Opłaty': [],
 };
@@ -17,6 +22,16 @@ const categories = reactive(CategoryFactory.createFromResponse(response));
 // ------------------- viewing categories and subcategories -------------------
 const canViewSubcategories = (category) => {
     return category.subcategories.length && category.isExpanded;
+};
+
+const categoryTitle = (category) => {
+    if (!category.subcategories.length) {
+        return null;
+    }
+
+    return category.isExpanded 
+        ? t('component.categoryList.category.hideSubcategories') 
+        : t('component.categoryList.category.showSubcategories');
 };
 
 // ------------------- adding a new subcategory -------------------
@@ -74,67 +89,74 @@ const createNewCategory = () => {
 
 <template>
     <div class="category-list">
-        <ul>
-            <li class="px-2 my-2" v-for="category in categories">
-                <p 
-                    class="cursor-pointer select-none flex items-center gap-2 w-fit rounded px-2 py-4 text-lg hover:shadow-inner hover:shadow-purple-400 group"
-                    @click.stop="category.switchExpand()"
-                    :title="category.isExpanded ? $t('component.categoryList.category.hideSubcategories') : $t('component.categoryList.category.showSubcategories')"
-                >
-                    <font-awesome-icon 
-                        icon="fa-solid fa-angle-right" 
-                        class="text-slate-600 cursor-pointer" 
-                        :class="{'rotate-90': category.isExpanded}" />
+        <draggable :list="categories" tag="ul" item-key="name" :animation="300">
+            <template #item="{ element: category }">
+                <li class="px-2 my-2">
+                    <p 
+                        class="cursor-pointer select-none flex items-center gap-2 w-fit rounded px-2 py-4 text-lg transition-colors duration-150 hover:bg-slate-200 group"
+                        @click.stop="category.switchExpand()"
+                        :title="categoryTitle(category)"
+                    >
+                        <font-awesome-icon icon="fa-solid fa-bars" class="text-slate-600 mr-3" />
 
-                    <div :class="{'py-0': category.isEdited, 'py-1.5': !category.isEdited}">
-                        <input type="text" v-model="category.name" v-if="category.isEdited" @keyup.enter="category.switchEdition()" @click.stop class="w-fit">
-                        <span 
+                        <font-awesome-icon 
+                            v-if="category.subcategories.length"
+                            icon="fa-solid fa-angle-right" 
+                            class="text-slate-600 cursor-pointer" 
+                            :class="{'rotate-90': category.isExpanded}" />
+                        <font-awesome-icon
                             v-else 
-                            :title="category.isExpanded ? $t('component.categoryList.category.hideSubcategories') : $t('component.categoryList.category.showSubcategories')"    
-                        >
-                            {{ category.name }}
-                        </span>
-                    </div>
+                            icon="fa-solid fa-minus" />
 
-                    <div class="flex gap-2 invisible group-hover:visible">
-                        <button type="button" class="hover:text-purple-600" @click.stop="category.switchEdition()">
-                            <font-awesome-icon icon="fa-regular fa-circle-check" v-if="category.isEdited" :title="$t('component.categoryList.category.change')"/>
-                            <font-awesome-icon icon="fa-solid fa-file-pen" v-else :title="$t('component.categoryList.category.edit')"/>
-                        </button>
-                        <button type="button" class="hover:text-purple-600" @click.stop="turnOnAddingANewSubCategory(category)" :title="$t('component.categoryList.category.addSubcategory')">
-                            <font-awesome-icon icon="fa-solid fa-file-circle-plus" />
-                        </button>
-                        <button type="button" class="hover:text-purple-600" @click.stop="removeCategory(category)" :title="$t('component.categoryList.category.delete')">
-                            <font-awesome-icon icon="fa-solid fa-trash" />
-                        </button>
-                    </div>
-                </p>
-                
-                <ul v-if="canViewSubcategories(category)" class="subcategories">
-                    <li class="flex px-2 my-2" v-for="subcategory in category.subcategories">
-                        <p class="flex items-center gap-2 w-fit rounded p-2 hover:shadow-inner hover:shadow-purple-400 group">
-                            <font-awesome-icon icon="fa-solid fa-minus" class="text-slate-600" />
+                        <div :class="{'py-0': category.isEdited, 'py-1.5': !category.isEdited}">
+                            <input type="text" v-model="category.name" v-if="category.isEdited" @keyup.enter="category.switchEdition()" @click.stop class="w-fit">
+                            <span v-else>
+                                {{ category.name }}
+                            </span>
+                        </div>
 
-                            <div :class="{'py-0': subcategory.isEdited, 'py-1.5': !subcategory.isEdited}">
-                                <input type="text" v-model="subcategory.name" v-if="subcategory.isEdited" @keyup.enter="subcategory.switchEdition()" class="w-fit">
-                                <span v-else class="select-none">
-                                    {{ subcategory.name }}
-                                </span>
-                            </div>
+                        <div class="flex gap-2 invisible group-hover:visible">
+                            <button type="button" class="hover:text-purple-600" @click.stop="category.switchEdition()">
+                                <font-awesome-icon icon="fa-regular fa-circle-check" v-if="category.isEdited" :title="$t('component.categoryList.category.change')"/>
+                                <font-awesome-icon icon="fa-solid fa-file-pen" v-else :title="$t('component.categoryList.category.edit')"/>
+                            </button>
+                            <button type="button" class="hover:text-purple-600" @click.stop="turnOnAddingANewSubCategory(category)" :title="$t('component.categoryList.category.addSubcategory')">
+                                <font-awesome-icon icon="fa-solid fa-file-circle-plus" />
+                            </button>
+                            <button type="button" class="hover:text-purple-600" @click.stop="removeCategory(category)" :title="$t('component.categoryList.category.delete')">
+                                <font-awesome-icon icon="fa-solid fa-trash" />
+                            </button>
+                        </div>
+                    </p>
+                    
+                    <draggable :list="category.subcategories" tag="ul" item-key="name" :animation="300" v-if="canViewSubcategories(category)" class="subcategories">
+                        <template #item="{ element: subcategory }">
+                            <li class="flex px-2 my-2">
+                                <p class="flex items-center gap-2 w-fit rounded p-2 hover:shadow-inner hover:shadow-purple-400 group">
+                                    <font-awesome-icon icon="fa-solid fa-bars" class="text-slate-600 mr-3" />
 
-                            <div class="flex gap-2 invisible group-hover:visible">
-                                <button type="button" class="hover:text-purple-600" @click.stop="subcategory.switchEdition()">
-                                    <font-awesome-icon icon="fa-regular fa-circle-check" v-if="subcategory.isEdited" :title="$t('component.categoryList.subcategory.change')"/>
-                                    <font-awesome-icon icon="fa-solid fa-file-pen" v-else :title="$t('component.categoryList.subcategory.edit')"/>
-                                </button>
-                                <button type="button" class="hover:text-purple-600" @click.stop="category.removeSubCategory(subcategory)" :title="$t('component.categoryList.subcategory.delete')">
-                                    <font-awesome-icon icon="fa-solid fa-trash" :title="$t('component.categoryList.subcategory.delete')"/>
-                                </button>
-                            </div>
-                        </p>
-                    </li>
+                                    <div :class="{'py-0': subcategory.isEdited, 'py-1.5': !subcategory.isEdited}">
+                                        <input type="text" v-model="subcategory.name" v-if="subcategory.isEdited" @keyup.enter="subcategory.switchEdition()" class="w-fit">
+                                        <span v-else class="select-none">
+                                            {{ subcategory.name }}
+                                        </span>
+                                    </div>
 
-                    <li class="flex px-2" v-if="category.isInAddingNewSubcategory">
+                                    <div class="flex gap-2 invisible group-hover:visible">
+                                        <button type="button" class="hover:text-purple-600" @click.stop="subcategory.switchEdition()">
+                                            <font-awesome-icon icon="fa-regular fa-circle-check" v-if="subcategory.isEdited" :title="$t('component.categoryList.subcategory.change')"/>
+                                            <font-awesome-icon icon="fa-solid fa-file-pen" v-else :title="$t('component.categoryList.subcategory.edit')"/>
+                                        </button>
+                                        <button type="button" class="hover:text-purple-600" @click.stop="category.removeSubCategory(subcategory)" :title="$t('component.categoryList.subcategory.delete')">
+                                            <font-awesome-icon icon="fa-solid fa-trash" :title="$t('component.categoryList.subcategory.delete')"/>
+                                        </button>
+                                    </div>
+                                </p>
+                            </li>
+                        </template>
+                    </draggable>
+
+                    <div class="flex px-2" v-if="category.isInAddingNewSubcategory">
                         <p class="flex items-center gap-2 w-fit rounded px-2 hover:shadow-inner hover:shadow-purple-400 group">
                             <font-awesome-icon icon="fa-solid fa-minus" class="text-slate-600" />
 
@@ -143,21 +165,21 @@ const createNewCategory = () => {
                                 <font-awesome-icon icon="fa-regular fa-circle-check" />
                             </button>
                         </p>
-                    </li>
-                </ul>
-            </li>
+                    </div>
+                </li>
+            </template>
+        </draggable>
 
-            <li class="px-4 text-lg">
-                <button v-if="!isNewCategoryAdding" type="button" class="hover:text-purple-600" @click.stop="isNewCategoryAdding = true" :title="$t('component.categoryList.category.add')">
-                    <font-awesome-icon icon="fa-solid fa-folder-plus" />
+        <div class="px-4 text-lg">
+            <button v-if="!isNewCategoryAdding" type="button" class="hover:text-purple-600" @click.stop="isNewCategoryAdding = true" :title="$t('component.categoryList.category.add')">
+                <font-awesome-icon icon="fa-solid fa-folder-plus" />
+            </button>
+            <div v-if="isNewCategoryAdding" class="flex gap-2">
+                <input type="text" v-model="newCategoryName" @keyup.enter="createNewCategory()">
+                <button type="button" class="hover:text-purple-600" @click.stop="createNewCategory()" :title="$t('component.categoryList.category.create')">
+                    <font-awesome-icon icon="fa-regular fa-circle-check" />
                 </button>
-                <div v-if="isNewCategoryAdding" class="flex gap-2">
-                    <input type="text" v-model="newCategoryName" @keyup.enter="createNewCategory()">
-                    <button type="button" class="hover:text-purple-600" @click.stop="createNewCategory()" :title="$t('component.categoryList.category.create')">
-                        <font-awesome-icon icon="fa-regular fa-circle-check" />
-                    </button>
-                </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </template>

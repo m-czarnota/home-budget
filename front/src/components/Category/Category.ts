@@ -17,7 +17,7 @@ export class Category {
         const index = this.subcategories.indexOf(subcategory);
         
         if (index === -1) {
-            throw new RangeError(`Subcategory ${subcategory.name} doesn't belong to category ${category.name}`);
+            throw new RangeError(`Subcategory ${subcategory.name} doesn't belong to category ${this.name}`);
         }
 
         this.subcategories.splice(index, 1);

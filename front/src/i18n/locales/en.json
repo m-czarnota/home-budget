@@ -3,7 +3,8 @@
         "home": "Home",
         "expenses": "Expenses",
         "categories": "Categories",
-        "prepareBudget": "Prepare budget"
+        "prepareBudget": "Prepare budget",
+        "irregularExpenses": "Irregular expenses"
     },
     "component": {
         "addExpense": {
@@ -41,11 +42,26 @@
             "form": {
                 "create": "Create budget"
             }
-        }
+        },
+        "currentIrregularExpenses": {
+            "onCurrentYear": "On current year",
+            "unsavedChanges": "You have unsaved changes!",
+            "form": {
+                "whim": "Whim",
+                "addNew": "Add new",
+                "save": "Save"
+            }
+        }  
     },
     "view": {
         "prepareBudget": {
             "header": "Prepare for a next month"
+        },
+        "irregularExpenses": {
+            "header": "Irregular Expenses"
         }
+    },
+    "form": {
+        "unsavedChanges": "Unsaved changes"
     }
 }
