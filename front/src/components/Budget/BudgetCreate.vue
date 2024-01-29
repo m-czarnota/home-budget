@@ -20,11 +20,20 @@ const canViewSubcategories = (category) => {
     <form method="post">
         <ul>
             <li class="flex flex-col px-2 my-2 gap-2" v-for="(category, index) in categories">
-                <div class="flex gap-2 items-center cursor-pointer" @click.stop="category.switchExpand()">
+                <div 
+                    class="flex gap-2 items-center" 
+                    :class="{'cursor-pointer': category.subcategories.length}"
+                    @click.stop="category.switchExpand()"
+                >
                     <font-awesome-icon 
+                        v-if="category.subcategories.length"
                         icon="fa-solid fa-angle-right" 
-                        class="text-slate-600 cursor-pointer" 
+                        class="text-slate-600" 
                         :class="{'rotate-90': category.isExpanded}"/>
+                    <font-awesome-icon
+                        v-else 
+                        icon="fa-solid fa-minus" />
+
                     <span class="w-1/4">{{ category.name }}</span>
                     <input type="number" :disabled="category.subcategories.length" class="col-start-2 col-end-3 h-fit">
                     <span>zł</span>

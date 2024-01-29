@@ -50,7 +50,9 @@
             "form": {
                 "whim": "Zachcianka",
                 "addNew": "Dodaj nowy",
-                "save": "Zapisz"
+                "save": "Zapisz",
+                "editName": "Edytuj nazwe",
+                "changeName": "Zmień nazwe"
             }
         }
     },
@@ -63,6 +65,7 @@
         }
     },
     "form": {
-        "unsavedChanges": "Niezapisane zmiany"
+        "unsavedChanges": "Niezapisane zmiany",
+        "newPosition": "Nowa pozycja"
     }
 }

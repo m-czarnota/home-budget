@@ -89,7 +89,7 @@ const createNewCategory = () => {
 
 <template>
     <div class="category-list">
-        <draggable :list="categories" tag="ul" item-key="name" :animation="300">
+        <draggable :list="categories" tag="ul" item-key="index" :animation="300">
             <template #item="{ element: category }">
                 <li class="px-2 my-2">
                     <p 
@@ -129,7 +129,7 @@ const createNewCategory = () => {
                         </div>
                     </p>
                     
-                    <draggable :list="category.subcategories" tag="ul" item-key="name" :animation="300" v-if="canViewSubcategories(category)" class="subcategories">
+                    <draggable :list="category.subcategories" tag="ul" item-key="index" :animation="300" v-if="canViewSubcategories(category)" class="subcategories">
                         <template #item="{ element: subcategory }">
                             <li class="flex px-2 my-2">
                                 <p class="flex items-center gap-2 w-fit rounded p-2 hover:shadow-inner hover:shadow-purple-400 group">

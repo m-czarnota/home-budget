@@ -1,5 +1,8 @@
 export class Expense {
+    public isNew = false;
+
     private _isExpanded: Boolean = false;
+    private _isEditingnName: Boolean = false;
     private originalState: String = '';
 
     constructor(
@@ -20,6 +23,14 @@ export class Expense {
         this._isExpanded = !this._isExpanded;
     }
 
+    public get isEditingName(): Boolean {
+        return this._isEditingnName;
+    }
+
+    public switchEditingName(): void {
+        this._isEditingnName = !this._isEditingnName;
+    }
+
     private buildState(): String {
         return JSON.stringify({
             name: this.name,
@@ -31,6 +42,10 @@ export class Expense {
     }
 
     public isChanged(): Boolean {
+        if (this.isNew) {
+            return false;
+        }
+
         return this.originalState !== this.buildState();
     }
 }

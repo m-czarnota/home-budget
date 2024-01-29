@@ -17,6 +17,7 @@ import {
     faBars,
     faScaleUnbalancedFlip,
     faFloppyDisk,
+    faCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faCircleCheck,
@@ -39,6 +40,7 @@ library.add(
     faBars,
     faScaleUnbalancedFlip,
     faFloppyDisk,
+    faCirclePlus,
 );
 library.add(
     faCircleCheck,
