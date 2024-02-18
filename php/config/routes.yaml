@@ -1,0 +1,11 @@
+category_controllers:
+    resource:
+        path: ../src/Category/Application/
+        namespace: App\Category\Application
+    type: attribute
+
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute

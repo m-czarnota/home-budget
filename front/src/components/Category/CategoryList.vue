@@ -75,7 +75,7 @@ const removeCategory = (category) => {
 const isNewCategoryAdding = ref(null);
 let newCategoryName = '';
 
-const createNewCategory = () => {
+const createNewCategory = async () => {
     if (newCategoryName) {
         const category = new Category(newCategoryName);
         categories.push(category);
@@ -83,6 +83,14 @@ const createNewCategory = () => {
 
     isNewCategoryAdding.value = false;
     newCategoryName = '';
+
+    const response = await fetch('http://localhost:8080/api/category', {
+        method: 'POST',
+    });
+    console.log(response.ok);
+
+    const data = await response.json();
+    console.log(data);
 }
 
 </script>
