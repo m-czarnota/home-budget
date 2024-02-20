@@ -4,6 +4,18 @@ category_controllers:
         namespace: App\Category\Application
     type: attribute
 
+person_controllers:
+    resource:
+        path: ../src/Person/Application/
+        namespace: App\Person\Application
+    type: attribute
+
+#expense_controllers:
+#    resource:
+#        path: ../src/Expense/Application/
+#        namespace: App\Expense\Application
+#    type: attribute
+
 controllers:
     resource:
         path: ../src/Controller/

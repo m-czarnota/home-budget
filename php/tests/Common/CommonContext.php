@@ -15,6 +15,12 @@ readonly class CommonContext implements Context
     ) {
     }
 
+    #[When('I open :requestType page :url')]
+    public function iOpenPage(string $requestType, string $url): void
+    {
+        $this->browser->json($requestType, $url);
+    }
+
     #[When('I open :requestType page :url with')]
     public function iOpenPageWith(string $requestType, string $url, PyStringNode $request): void
     {

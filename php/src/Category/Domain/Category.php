@@ -64,7 +64,7 @@ class Category implements JsonSerializable
 
     public function hasSubCategory(Category $subCategory): bool
     {
-        return isset($this->getSubCategories()[$subCategory->id]);
+        return $this->subCategories->get($subCategory->id) !== null;
     }
 
     public function addSubCategory(self $subCategory): self
@@ -81,12 +81,17 @@ class Category implements JsonSerializable
         return $this;
     }
 
+    public function findSubCategory(string $id): ?self
+    {
+        return $this->subCategories->get($id);
+    }
+
     /**
      * @return array<int, self>
      */
     public function getSubCategories(): array
     {
-        return $this->subCategories->toArray();
+        return $this->subCategories->getValues();
     }
 
     public function jsonSerialize(): array
@@ -122,7 +127,7 @@ class Category implements JsonSerializable
      */
     private function updateSubCategory(self $subCategory): self
     {
-        $existedSubCategory = $this->getSubCategories()[$subCategory->id] ?? null;
+        $existedSubCategory = $this->subCategories->get($subCategory->id);
         if (!$existedSubCategory) {
             throw new SubCategoryNotBelongToCategoryException("Subcategory {$subCategory->id} doesn't belong to category {$this->id}");
         }

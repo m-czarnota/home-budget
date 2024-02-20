@@ -2,9 +2,9 @@
 
 namespace App\Tests\Category\Unit\Application;
 
-use App\Category\Application\RequestNotValidException;
-use App\Category\Application\RequestValidator;
-use App\Category\Application\ResponseErrorDto;
+use App\Category\Application\UpdateCategories\RequestNotValidException;
+use App\Category\Application\UpdateCategories\RequestValidator;
+use App\Category\Application\UpdateCategories\ResponseErrorDto;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

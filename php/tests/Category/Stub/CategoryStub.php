@@ -7,6 +7,9 @@ use DateTimeImmutable;
 
 class CategoryStub
 {
+    /**
+     * @return array<int, Category>
+     */
     public static function createMultipleFromArrayData(array $categoriesData): array
     {
         $categories = [];

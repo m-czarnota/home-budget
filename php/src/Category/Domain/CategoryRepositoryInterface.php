@@ -19,4 +19,9 @@ interface CategoryRepositoryInterface
     public function update(Category $category): void;
 
     public function findOneById(string $id): ?Category;
+
+    /**
+     * @return array<int, Category>
+     */
+    public function findList(): array;
 }

@@ -5,6 +5,7 @@ default:
             contexts:
                 - App\Tests\Common\CommonContext
                 - App\Tests\Category\Behat\CategoryContext
+                - App\Tests\Person\Behat\PersonContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:

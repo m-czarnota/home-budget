@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Category\Application;
+namespace App\Category\Application\UpdateCategories;
 
 use App\Category\Domain\UpdateCategoriesService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/category', name: 'api_category_create', methods: [Request::METHOD_PUT])]
+#[Route('/api/category', methods: [Request::METHOD_PUT])]
 class UpdateCategoriesController extends AbstractController
 {
     public function __construct(

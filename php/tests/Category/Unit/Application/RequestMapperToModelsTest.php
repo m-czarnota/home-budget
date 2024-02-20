@@ -2,8 +2,8 @@
 
 namespace App\Tests\Category\Unit\Application;
 
-use App\Category\Application\RequestMapperToModels;
-use App\Category\Application\RequestNotValidException;
+use App\Category\Application\UpdateCategories\RequestMapperToModels;
+use App\Category\Application\UpdateCategories\RequestNotValidException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

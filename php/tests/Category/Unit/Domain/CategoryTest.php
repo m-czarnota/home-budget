@@ -203,7 +203,7 @@ class CategoryTest extends TestCase
         $category->addSubCategory($subCategory);
 
         self::assertCount(1, $category->getSubCategories());
-        self::assertEquals($subCategory->id, $category->getSubCategories()[$subCategory->id]->id ?? null);
+        self::assertEquals($subCategory->id, $category->findSubCategory($subCategory->id)?->id);
     }
 
     public function testRemoveSubCategory(): void

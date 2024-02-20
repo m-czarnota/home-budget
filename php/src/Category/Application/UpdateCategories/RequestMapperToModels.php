@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Category\Application;
+namespace App\Category\Application\UpdateCategories;
 
 use App\Category\Domain\Category;
 use App\Category\Domain\CategoryNotValidException;

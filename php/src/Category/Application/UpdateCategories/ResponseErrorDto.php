@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Category\Application;
+namespace App\Category\Application\UpdateCategories;
 
 class ResponseErrorDto
 {

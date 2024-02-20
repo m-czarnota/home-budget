@@ -2,7 +2,22 @@
 
 namespace App\Category\Application\ListCategories;
 
-class ListCategoriesController
-{
+use App\Category\Domain\ListCategoriesService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/category', methods: Request::METHOD_GET)]
+class ListCategoriesController extends AbstractController
+{
+    public function __construct(
+        private readonly ListCategoriesService $service,
+    ) {
+    }
+
+    public function __invoke(): JsonResponse
+    {
+        return new JsonResponse($this->service->execute());
+    }
 }

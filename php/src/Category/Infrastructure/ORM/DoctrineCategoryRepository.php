@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Category\Infrastructure;
+namespace App\Category\Infrastructure\ORM;
 
 use App\Category\Domain\Category;
 use App\Category\Domain\CategoryRepositoryInterface;
@@ -74,6 +74,14 @@ class DoctrineCategoryRepository extends ServiceEntityRepository implements Cate
     public function findOneById(string $id): ?Category
     {
         return $this->findOneBy(['id' => $id]);
+    }
+
+    /**
+     * @return array<int, Category>
+     */
+    public function findList(): array
+    {
+        return $this->findAll();
     }
 
     private function addSubCategory(Category $subCategory, Category $category): void

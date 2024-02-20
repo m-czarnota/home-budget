@@ -8,7 +8,7 @@ $finder = (new PhpCsFixer\Finder())
 
 return (new PhpCsFixer\Config())
     ->setRules([
-        '@PHP82Migration' => true,
+        '@PHP83Migration' => true,
         '@PSR12' => true,
         '@Symfony' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
