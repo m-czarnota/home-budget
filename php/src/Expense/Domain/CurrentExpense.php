@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class Expense extends IrregularExpense
+class CurrentExpense extends AbstractExpense
 {
     public readonly string $id;
 
@@ -26,8 +26,7 @@ class Expense extends IrregularExpense
         Category $category,
         bool $isWish = false,
         ?DateTimeImmutable $dateOfExpense = null,
-    )
-    {
+    ) {
         parent::__construct($id, $name, $cost, $category, $isWish);
 
         $this->dateOfExpense = $dateOfExpense ?? new DateTimeImmutable();

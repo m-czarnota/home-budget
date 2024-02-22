@@ -6,25 +6,23 @@ use App\Category\Domain\Category;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 
-class AbstractExpense implements JsonSerializable
+abstract class AbstractExpense implements JsonSerializable
 {
     public readonly string $id;
-
-    private int $plannedYear
 
     /**
      * @throws ExpenseNotValidException
      */
     public function __construct(
         ?string $id,
-        private string $name,
-        private float $cost,
-        private Category $category,
-        private bool $isWish = false,
+        protected string $name,
+        protected float $cost,
+        protected Category $category,
+        protected bool $isWish = false,
     ) {
         $this->id = $id ?? Uuid::uuid7();
 
-        $errors = $this->validate();
+        $errors = self::validate();
         if (!empty($errors)) {
             throw new ExpenseNotValidException(json_encode($errors));
         }

@@ -3,6 +3,7 @@
 namespace App\Tests\Category\Stub;
 
 use App\Category\Domain\Category;
+use App\Category\Domain\CategoryNotValidException;
 use DateTimeImmutable;
 
 class CategoryStub
@@ -41,5 +42,19 @@ class CategoryStub
         }
 
         return $category;
+    }
+
+    /**
+     * @throws CategoryNotValidException
+     */
+    public static function createExampleCategory(
+        ?string $id = null,
+        string $name = 'Example Category',
+    ): Category {
+        return new Category(
+            $id,
+            $name,
+            0,
+        );
     }
 }

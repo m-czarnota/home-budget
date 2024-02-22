@@ -24,12 +24,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Person/Infrastructure/ORM/Mapping'
                 prefix: 'App\Person\Domain'
                 alias: Person
-#            Expense:
-#                type: xml
-#                is_bundle: false
-#                dir: '%kernel.project_dir%/src/Expense/Infrastructure/ORM/Mapping'
-#                prefix: 'App\Expense\Domain'
-#                alias: Expense
+            Expense:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Expense/Infrastructure/ORM/Mapping'
+                prefix: 'App\Expense\Domain'
+                alias: Expense
 
 when@prod:
     doctrine:

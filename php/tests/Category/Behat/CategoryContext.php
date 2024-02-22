@@ -2,16 +2,23 @@
 
 namespace App\Tests\Category\Behat;
 
+use App\Category\Domain\CategoryNotValidException;
+use App\Category\Domain\CategoryRepositoryInterface;
+use App\Tests\Category\Stub\CategoryStub;
 use App\Tests\Common\HomeBudgetKernelBrowser;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
+use Behat\Step\Given;
 use Behat\Step\Then;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Assert;
 
 readonly class CategoryContext implements Context
 {
     public function __construct(
         private HomeBudgetKernelBrowser $browser,
+        private CategoryRepositoryInterface $categoryRepository,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -36,6 +43,27 @@ readonly class CategoryContext implements Context
         $response = $this->browser->getLastResponseContentAsArray();
 
         $this->checkIfResponseLooksLikeDummyResponse($response, $dummyResponseFields);
+    }
+
+    /**
+     * @throws CategoryNotValidException
+     */
+    #[Given('there are exist categories with')]
+    public function thereAreExistCategories(PyStringNode $categoriesContent): void
+    {
+        $categoriesData = json_decode(trim($categoriesContent->getRaw()), true);
+
+        foreach ($categoriesData as $categoryData) {
+            $existedCategory = $this->categoryRepository->findOneById($categoryData['id']);
+            if ($existedCategory !== null) {
+                continue;
+            }
+
+            $category = CategoryStub::createExampleCategory($categoryData['id'], $categoryData['name']);
+            $this->categoryRepository->add($category);
+        }
+
+        $this->entityManager->flush();
     }
 
     private function checkIfResponseLooksLikeDummyResponse(array $response, array $dummyResponse): void

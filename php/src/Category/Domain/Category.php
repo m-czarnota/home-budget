@@ -14,6 +14,8 @@ class Category implements JsonSerializable
 
     private bool $isDeleted = false;
 
+    public readonly DateTimeImmutable $lastModified;
+
     private ?self $parent = null;
 
     /** @var Collection<int, self> */
@@ -26,9 +28,10 @@ class Category implements JsonSerializable
         ?string $id,
         private string $name,
         private int $position = 0,
-        public readonly ?DateTimeImmutable $lastModified = null,
+        ?DateTimeImmutable $lastModified = null,
     ) {
         $this->id = $id ?? Uuid::uuid7();
+        $this->lastModified = $lastModified ?? new DateTimeImmutable();
         $this->subCategories = new ArrayCollection();
 
         $errors = $this->validate();

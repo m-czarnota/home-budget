@@ -9,11 +9,11 @@ use App\Tests\Category\Stub\CategoryStub;
 use DateTimeImmutable;
 use Exception;
 
-class ExpenseStub
+class IrregularExpenseStub
 {
     /**
-     * @param array $peopleData
      * @return array<int, IrregularExpense>
+     *
      * @throws ExpenseNotValidException
      */
     public static function createMultipleFromArrayData(array $peopleData): array
@@ -31,7 +31,7 @@ class ExpenseStub
             $irregularExpenseData['id'] ?? null,
             $irregularExpenseData['name'],
             $irregularExpenseData['cost'],
-            $irregularExpenseData['category'],
+            CategoryStub::createExampleCategory($irregularExpenseData['category']),
             $irregularExpenseData['position'],
             $irregularExpenseData['isWish'],
             $irregularExpenseData['plannedYear'],
@@ -42,14 +42,17 @@ class ExpenseStub
      * @throws CategoryNotValidException
      * @throws ExpenseNotValidException
      */
-    public static function createExample(?string $id = null, ?string $categoryId = null): IrregularExpense
-    {
+    public static function createExample(
+        ?string $id = null,
+        string $name = 'Example Irregular Expense',
+        ?string $categoryId = null
+    ): IrregularExpense {
         $currentDate = new DateTimeImmutable();
         $currentYear = intval($currentDate->format('Y'));
 
         return new IrregularExpense(
             $id,
-            'Example Irregular Expense',
+            $name,
             1000,
             CategoryStub::createExampleCategory($categoryId),
             0,

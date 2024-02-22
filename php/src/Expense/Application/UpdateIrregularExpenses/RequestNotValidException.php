@@ -2,7 +2,8 @@
 
 namespace App\Expense\Application\UpdateIrregularExpenses;
 
-class RequestNotValidException
-{
+use Exception;
 
+class RequestNotValidException extends Exception
+{
 }

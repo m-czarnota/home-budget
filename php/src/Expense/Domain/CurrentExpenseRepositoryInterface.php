@@ -2,9 +2,9 @@
 
 namespace App\Expense\Domain;
 
-interface ExpenseRepositoryInterface
+interface CurrentExpenseRepositoryInterface
 {
-    public function add(CurrentExpense $expense): void;
+    public function add(CurrentExpense $currentExpense): void;
 
-    public function remove(CurrentExpense $expense): void;
+    public function remove(CurrentExpense $currentExpense): void;
 }

@@ -10,11 +10,11 @@ person_controllers:
         namespace: App\Person\Application
     type: attribute
 
-#expense_controllers:
-#    resource:
-#        path: ../src/Expense/Application/
-#        namespace: App\Expense\Application
-#    type: attribute
+expense_controllers:
+    resource:
+        path: ../src/Expense/Application/
+        namespace: App\Expense\Application
+    type: attribute
 
 controllers:
     resource:

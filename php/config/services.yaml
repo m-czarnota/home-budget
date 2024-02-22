@@ -25,4 +25,5 @@ services:
 
     App\Category\Domain\CategoryRepositoryInterface: '@App\Category\Infrastructure\ORM\DoctrineCategoryRepository'
     App\Person\Domain\PersonRepositoryInterface: '@App\Person\Infrastructure\ORM\DoctrinePersonRepository'
-    App\Expense\Domain\ExpenseRepositoryInterface: '@App\Expense\Infrastructure\ORM\DoctrineExpenseRepository'
+    App\Expense\Domain\CurrentExpenseRepositoryInterface: '@App\Expense\Infrastructure\ORM\DoctrineCurrentExpenseRepository'
+    App\Expense\Domain\IrregularExpenseRepositoryInterface: '@App\Expense\Infrastructure\ORM\DoctrineIrregularExpenseRepository'

@@ -3,15 +3,18 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
-    <entity name="App\Expense\Domain\Expense" table="expense" repository-class="App\Expense\Infrastructure\ORM\DoctrineExpenseRepository">
-        <id name="id" type="string" length="50" column="id"/>
-        <field name="name" column="name"/>
-        <field name="cost" column="cost" type="float"/>
-
-        <field name="isDeleted" column="is_deleted" type="boolean"/>
-        <field name="lastModified" column="last_modified" type="datetime_immutable"/>
-
-        <field name="isWish" column="is_with" type="boolean"/>
+    <entity name="App\Expense\Domain\CurrentExpense" table="current_expense" repository-class="App\Expense\Infrastructure\ORM\DoctrineCurrentExpenseRepository">
         <field name="dateOfExpense" column="date_of_expense" type="datetime_immutable"/>
+        
+        <many-to-many field="people" target-entity="App\Person\Domain\Person">
+            <join-table name="current_expense_persons">
+                <join-columns>
+                    <join-column name="current_expense_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="person_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>
