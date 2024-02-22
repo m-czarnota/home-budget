@@ -3,15 +3,14 @@
 namespace App\Expense\Domain;
 
 use App\Category\Domain\Category;
-use DateTimeImmutable;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 
-class Expense implements JsonSerializable
+class AbstractExpense implements JsonSerializable
 {
     public readonly string $id;
 
-    private DateTimeImmutable $dateOfExpense;
+    private int $plannedYear
 
     /**
      * @throws ExpenseNotValidException
@@ -21,12 +20,9 @@ class Expense implements JsonSerializable
         private string $name,
         private float $cost,
         private Category $category,
-        private array $people,
         private bool $isWish = false,
-        ?DateTimeImmutable $dateOfExpense = null,
     ) {
         $this->id = $id ?? Uuid::uuid7();
-        $this->dateOfExpense = $dateOfExpense ?? new DateTimeImmutable();
 
         $errors = $this->validate();
         if (!empty($errors)) {
@@ -41,12 +37,11 @@ class Expense implements JsonSerializable
             'name' => $this->name,
             'cost' => $this->cost,
             'category' => $this->category->id,
-            'people' => $this->people,
             'isWish' => $this->isWish,
         ];
     }
 
-    private function validate(): array
+    protected function validate(): array
     {
         $errors = [];
 
