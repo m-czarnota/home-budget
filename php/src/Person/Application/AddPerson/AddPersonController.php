@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/person', methods: Request::METHOD_POST)]
+#[Route(methods: Request::METHOD_POST)]
 class AddPersonController extends AbstractController
 {
     public function __construct(

@@ -3,18 +3,24 @@ category_controllers:
         path: ../src/Category/Application/
         namespace: App\Category\Application
     type: attribute
+    prefix: /api/v1/categories
+    trailing_slash_on_root: false
 
 person_controllers:
     resource:
         path: ../src/Person/Application/
         namespace: App\Person\Application
     type: attribute
+    prefix: /api/v1/people
+    trailing_slash_on_root: false
 
 expense_controllers:
     resource:
         path: ../src/Expense/Application/
         namespace: App\Expense\Application
     type: attribute
+    prefix: /api/v1/expenses
+    trailing_slash_on_root: false
 
 controllers:
     resource:

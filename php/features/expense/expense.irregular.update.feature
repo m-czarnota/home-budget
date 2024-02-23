@@ -14,7 +14,7 @@ Feature: Update irregular expenses controller tests
       }
     ]
     """
-    When I open "PUT" page "/api/expense/irregular" with
+    When I open "PUT" page "/api/v1/expenses/irregular" with
     """
     [
       {
@@ -71,7 +71,7 @@ Feature: Update irregular expenses controller tests
       }
     ]
     """
-    When I open "PUT" page "/api/expense/irregular" with
+    When I open "PUT" page "/api/v1/expenses/irregular" with
     """
     [
       {
@@ -106,12 +106,12 @@ Feature: Update irregular expenses controller tests
     And in db there are only irregular expenses received in response
 
   Scenario: User tries to update irregular expenses with empty request content and he gets bad request code in response and info
-    When I open "PUT" page "/api/expense/irregular"
+    When I open "PUT" page "/api/v1/expenses/irregular"
     Then the response with code "400" should be received
     And the response should contains message "Sent request has not content"
 
   Scenario: User tries to update irregular expenses with missing parameters in request content and he gets bad request code in response and errors
-    When I open "PUT" page "/api/expense/irregular" with
+    When I open "PUT" page "/api/v1/expenses/irregular" with
     """
     [
       {
@@ -166,7 +166,7 @@ Feature: Update irregular expenses controller tests
       }
     ]
     """
-    When I open "PUT" page "/api/expense/irregular" with
+    When I open "PUT" page "/api/v1/expenses/irregular" with
     """
     [
       {

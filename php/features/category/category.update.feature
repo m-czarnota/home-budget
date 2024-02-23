@@ -2,7 +2,7 @@ Feature:
   Update categories controller tests
 
   Scenario: User successfully creates/updates categories
-    When I open "PUT" page "/api/category" with
+    When I open "PUT" page "/api/v1/categories" with
     """
       [
         {
@@ -47,7 +47,7 @@ Feature:
     And all elements should have id
 
   Scenario: User sends bad request with plain fields instead of objects in array and he gets bad request code in response
-    When I open "PUT" page "/api/category" with
+    When I open "PUT" page "/api/v1/categories" with
     """
     {
       "something not allowed": "random value",
@@ -63,7 +63,7 @@ Feature:
     Then the response with code "400" should be received
 
   Scenario: User sends incomplete request with missing fields and he gets bad request code in response and errors data
-    When I open "PUT" page "/api/category" with
+    When I open "PUT" page "/api/v1/categories" with
     """
     [
       {
@@ -115,7 +115,7 @@ Feature:
     """
 
   Scenario: User sends request with not valid data and he gets not acceptable code in response and errors data
-    When I open "PUT" page "/api/category" with
+    When I open "PUT" page "/api/v1/categories" with
     """
     [
       {
