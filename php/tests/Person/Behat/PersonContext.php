@@ -29,6 +29,10 @@ readonly class PersonContext implements Context
         $personData = json_decode(trim($personRawData->getRaw()), true);
         $person = PersonStub::createFromArrayData($personData);
 
+        if ($this->personRepository->findOneById($person->id)) {
+            return;
+        }
+
         $this->personRepository->add($person);
     }
 

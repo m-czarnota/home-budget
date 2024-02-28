@@ -38,7 +38,7 @@ class CurrentExpense extends AbstractExpense
         return array_merge(
             parent::jsonSerialize(),
             [
-                'people' => $this->people,
+                'people' => $this->people->getKeys(),
                 'dateOfExpense' => $this->dateOfExpense,
             ]
         );

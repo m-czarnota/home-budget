@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Expense\Unit\Application;
+namespace App\Tests\Expense\Unit\Application\UpdateIrregularExpenses;
 
 use App\Expense\Application\UpdateIrregularExpenses\RequestValidator;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Expense\Unit\Application;
+namespace App\Tests\Expense\Unit\Application\UpdateIrregularExpenses;
 
 use App\Category\Domain\CategoryNotValidException;
 use App\Category\Domain\CategoryRepositoryInterface;

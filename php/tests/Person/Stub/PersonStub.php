@@ -35,7 +35,7 @@ class PersonStub
     /**
      * @throws PersonNotValidException
      */
-    public static function createExamplePerson(string $id): Person
+    public static function createExamplePerson(?string $id = null): Person
     {
         return new Person(
             $id,
