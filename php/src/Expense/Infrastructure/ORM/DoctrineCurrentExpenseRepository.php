@@ -31,4 +31,9 @@ class DoctrineCurrentExpenseRepository extends ServiceEntityRepository implement
     {
         $this->getEntityManager()->remove($currentExpense);
     }
+
+    public function findOneById(string $id): ?CurrentExpense
+    {
+        return $this->find($id);
+    }
 }

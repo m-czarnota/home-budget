@@ -34,4 +34,18 @@ class CurrentExpenseStub
 
         return $currentExpense;
     }
+
+    /**
+     * @throws CategoryNotValidException
+     * @throws ExpenseNotValidException
+     */
+    public static function createExample(?string $id = null): CurrentExpense
+    {
+        return new CurrentExpense(
+            $id,
+            'Example expense',
+            100,
+            CategoryStub::createExampleCategory(),
+        );
+    }
 }
