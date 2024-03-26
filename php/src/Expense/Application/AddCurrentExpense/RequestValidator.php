@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Application\AddCurrentExpense;
 
 use Symfony\Component\HttpFoundation\RequestStack;

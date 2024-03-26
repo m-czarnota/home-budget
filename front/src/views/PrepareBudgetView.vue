@@ -1,6 +1,6 @@
 <script setup>
 import BudgetCreate from '../components/Budget/BudgetCreate.vue';
-import DescribedContentRow from '../components/DescribedContentRow.vue'
+import DescribedContentRow from '../layout/DescribedContentRow.vue'
 
 </script>
 

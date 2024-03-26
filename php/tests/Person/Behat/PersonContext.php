@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Person\Behat;
 
 use App\Person\Domain\PersonNotValidException;

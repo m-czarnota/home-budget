@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Unit\Domain;
 
 use App\Category\Domain\Category;
+use App\Category\Domain\CategoryDeletionInfoCollection;
 use App\Category\Domain\CategoryRepositoryInterface;
 use App\Category\Domain\UpdateCategoriesService;
 use App\Tests\Category\Stub\CategoryStub;
@@ -36,7 +39,7 @@ class UpdateCategoriesServiceTest extends TestCase
             ));
 
         $categories = CategoryStub::createMultipleFromArrayData($categoriesToUpdateData);
-        $updatedCategories = $this->service->execute(...$categories);
+        $updatedCategories = $this->service->execute(new CategoryDeletionInfoCollection(), ...$categories);
 
         // checking if updated data state corresponds to received data as $categoriesToUpdateData
         self::assertCount(count($categoriesToUpdateData), $updatedCategories);
@@ -128,7 +131,7 @@ class UpdateCategoriesServiceTest extends TestCase
                 ],
                 'existingCategoriesData' => [
                     [
-                        'id' => 1,
+                        'id' => '1',
                         'name' => 'Category 1',
                         'position' => 0,
                         'subCategories' => [

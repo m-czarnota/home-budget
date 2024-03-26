@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Domain;
 
 use App\Category\Domain\Category;
@@ -20,7 +22,7 @@ abstract class AbstractExpense implements JsonSerializable
         protected Category $category,
         protected bool $isWish = false,
     ) {
-        $this->id = $id ?? Uuid::uuid7();
+        $this->id = $id ?? Uuid::uuid7()->toString();
 
         $errors = self::validate();
         if (!empty($errors)) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Domain;
 
 use App\Category\Domain\Category;
@@ -25,7 +27,7 @@ class IrregularExpense extends AbstractExpense
         }
 
         $this->position = $position;
-        $this->plannedYear = $plannedYear ?? (new DateTimeImmutable())->format('Y');
+        $this->plannedYear = $plannedYear ?? intval((new DateTimeImmutable())->format('Y'));
 
         $errors = $this->validate();
         if (!empty($errors)) {

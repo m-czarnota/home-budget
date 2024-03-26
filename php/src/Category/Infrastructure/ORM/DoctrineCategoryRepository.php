@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Category\Infrastructure\ORM;
 
 use App\Category\Domain\Category;
@@ -14,7 +16,6 @@ use ReflectionClass;
  *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
- * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DoctrineCategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
@@ -36,10 +37,14 @@ class DoctrineCategoryRepository extends ServiceEntityRepository implements Cate
     public function remove(Category $category): void
     {
         foreach ($category->getSubCategories() as $subCategory) {
-            $this->getEntityManager()->remove($subCategory);
+            if (!$subCategory->isDeleted()) {
+                $this->getEntityManager()->remove($subCategory);
+            }
         }
 
-        $this->getEntityManager()->remove($category);
+        if (!$category->isDeleted()) {
+            $this->getEntityManager()->remove($category);
+        }
     }
 
     public function update(Category $category): void
@@ -49,7 +54,7 @@ class DoctrineCategoryRepository extends ServiceEntityRepository implements Cate
             throw new InvalidArgumentException("Category {$category->id} doesn't exist");
         }
 
-        $subCategories = $category->getSubCategories();
+        $subCategories = $category->getSubCategories(true);
 
         // adding new subcategories when they don't exist
         foreach ($subCategories as $subCategory) {
@@ -64,8 +69,14 @@ class DoctrineCategoryRepository extends ServiceEntityRepository implements Cate
 
         // removing subcategories when they aren't in updated category
         foreach ($existedSubCategoryIds as $existedSubCategoryId) {
-            if (!isset($subCategories[$existedSubCategoryId])) {
-                $subCategory = $this->find($existedSubCategoryId);
+            if (isset($subCategories[$existedSubCategoryId])) {
+                continue;
+            }
+
+            $subCategory = $this->find($existedSubCategoryId);
+
+            // removing subcategory only when it isn't already marked as deleted
+            if (!$subCategory->isDeleted()) {
                 $this->getEntityManager()->remove($subCategory);
             }
         }
@@ -81,11 +92,33 @@ class DoctrineCategoryRepository extends ServiceEntityRepository implements Cate
      */
     public function findList(): array
     {
-        return $this->findAll();
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb
+            ->where($qb->expr()->isNull('c.parent'))
+            ->orderBy('c.position')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAll(): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb
+            ->where($qb->expr()->isNull('c.parent'))
+            ->getQuery()
+            ->getResult();
     }
 
     private function addSubCategory(Category $subCategory, Category $category): void
     {
+        // resolve doctrine proxy class problem with reflection and not existed property within this proxy class
+        $existedSubCategory = $this->findOneById($subCategory->id);
+        if ($existedSubCategory) {
+            return;
+        }
+
         $reflectionClass = new ReflectionClass($subCategory);
         $parent = $reflectionClass->getProperty('parent');
         $parent->setAccessible(true);

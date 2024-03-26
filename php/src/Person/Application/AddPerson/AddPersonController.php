@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Person\Application\AddPerson;
 
 use App\Person\Domain\AddPersonService;
@@ -11,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(methods: Request::METHOD_POST)]
+#[Route('/people', methods: Request::METHOD_POST)]
 class AddPersonController extends AbstractController
 {
     public function __construct(

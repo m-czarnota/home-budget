@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Application\AddCurrentExpense;
 
 use App\Category\Domain\CategoryNotFoundException;
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/current', methods: Request::METHOD_POST)]
+#[Route('/expenses/current', methods: Request::METHOD_POST)]
 class AddCurrentExpenseController extends AbstractController
 {
     public function __construct(

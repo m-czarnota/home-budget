@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Application\UpdateIrregularExpenses;
 
 use App\Expense\Domain\UpdateIrregularExpensesService;
@@ -10,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/irregular', methods: Request::METHOD_PUT)]
+#[Route('/expenses/irregular', methods: Request::METHOD_PUT)]
 class UpdateIrregularExpensesController extends AbstractController
 {
     public function __construct(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Person\Domain;
 
 use DateTimeImmutable;
@@ -21,7 +23,7 @@ class Person
         public readonly string $name,
         ?DateTimeImmutable $lastModified = null,
     ) {
-        $this->id = $id ?? Uuid::uuid7();
+        $this->id = $id ?? Uuid::uuid7()->toString();
         $this->lastModified = $lastModified ?? new DateTimeImmutable();
 
         $errors = $this->validate();

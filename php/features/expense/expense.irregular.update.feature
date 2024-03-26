@@ -6,7 +6,13 @@ Feature: Update irregular expenses controller tests
     [
       {
         "id": "category-1",
-        "name": "Category 1"
+        "name": "Category 1",
+        "subCategories": [
+          {
+            "id": "sub-category-1-1",
+            "name": "Sub Category 1.1"
+          }
+        ]
       },
       {
         "id": "category-2",
@@ -20,7 +26,7 @@ Feature: Update irregular expenses controller tests
       {
         "name": "Wakacje w Budapeszcie",
         "cost": 5200,
-        "category": "category-1",
+        "category": "sub-category-1-1",
         "position": 0,
         "isWish": true,
         "plannedYear": 2024
@@ -43,7 +49,13 @@ Feature: Update irregular expenses controller tests
     [
       {
         "id": "category-1",
-        "name": "Category 1"
+        "name": "Category 1",
+        "subCategories": [
+          {
+            "id": "sub-category-1-1",
+            "name": "Sub Category 1.1"
+          }
+        ]
       },
       {
         "id": "category-2",
@@ -87,7 +99,7 @@ Feature: Update irregular expenses controller tests
         "id": "irregular-expense-2",
         "name": "Irregular Expense 2",
         "cost": 1200,
-        "category": "category-2",
+        "category": "sub-category-1-1",
         "position": 1,
         "isWish": false,
         "plannedYear": 2025

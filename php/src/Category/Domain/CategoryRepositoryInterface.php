@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Category\Domain;
 
 use InvalidArgumentException;
@@ -24,4 +26,9 @@ interface CategoryRepositoryInterface
      * @return array<int, Category>
      */
     public function findList(): array;
+
+    /**
+     * @return array<int, Category>
+     */
+    public function findAll(): array;
 }

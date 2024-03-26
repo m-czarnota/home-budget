@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Person\Application\AddPerson;
 
 use Symfony\Component\HttpFoundation\RequestStack;

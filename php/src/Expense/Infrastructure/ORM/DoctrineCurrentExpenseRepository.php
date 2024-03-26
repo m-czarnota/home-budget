@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Infrastructure\ORM;
 
+use App\Category\Domain\Category;
 use App\Expense\Domain\CurrentExpense;
 use App\Expense\Domain\CurrentExpenseRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -35,5 +38,17 @@ class DoctrineCurrentExpenseRepository extends ServiceEntityRepository implement
     public function findOneById(string $id): ?CurrentExpense
     {
         return $this->find($id);
+    }
+
+    public function hasCategoryAnyConnection(Category $category): bool
+    {
+        $qb = $this->createQueryBuilder('ce');
+
+        return $qb
+            ->select($qb->expr()->count('ce.id'))
+            ->where('ce.category = :categoryId')
+            ->setParameter('categoryId', $category->id)
+            ->getQuery()
+            ->getSingleScalarResult() !== 0;
     }
 }

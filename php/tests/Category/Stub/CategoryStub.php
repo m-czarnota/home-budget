@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Stub;
 
 use App\Category\Domain\Category;
@@ -8,6 +10,8 @@ use DateTimeImmutable;
 
 class CategoryStub
 {
+    private static int $position = 0;
+
     /**
      * @return array<int, Category>
      */
@@ -50,11 +54,22 @@ class CategoryStub
     public static function createExampleCategory(
         ?string $id = null,
         string $name = 'Example Category',
+        array $subCategoriesData = [],
+        ?int $position = null,
     ): Category {
-        return new Category(
+        $category = new Category(
             $id,
             $name,
-            0,
+            $position ?? self::$position++,
         );
+
+        foreach ($subCategoriesData as $subCategoryData) {
+            $category->addSubCategory(self::createExampleCategory(
+                $subCategoryData['id'],
+                $subCategoryData['name'],
+            ));
+        }
+
+        return $category;
     }
 }

@@ -22,6 +22,7 @@
         },
         "categoryList": {
             "header": "Kategorie",
+            "description": "Poniższe kategorie są wykorzystywane w wydatkach. Kategorie mogą zawierać także podkategorie. Możesz zmieniać kolejność wyświetlania zarówno kategorii jak i podkategorii.",
             "category": {
                 "add": "Dodaj nową kategorię",
                 "create": "Stwórz nową kategorię",
@@ -30,8 +31,14 @@
                 "edit": "Edytuj kategorię",
                 "change": "Zmień kategorię",
                 "showSubcategories": "Pokaż subkategorie",
-                "hideSubcategories": "Ukryj subkategorie"
+                "hideSubcategories": "Ukryj subkategorie",
+                "countOfSubcategories": "Ilość podkategorii",
+                "newCategory": "Nowa kategoria",
+                "cancel": "Anuluj"
             },
+            "save": "Zapisz",
+            "successSave": "Kategorie zaktualizowane pomyślnie.",
+            "errorSave": "Nie można zapisać zmian. Spróbuj ponownie.",
             "subcategory": {
                 "create": "Utwórz nową subkategorię",
                 "delete": "Usuń subkategorię",
@@ -44,7 +51,7 @@
                 "create": "Utwórz budżet"
             }
         },
-        "currentIrregularExpenses": {
+        "irregularExpenses": {
             "onCurrentYear": "Na bieżący rok",
             "unsavedChanges": "Masz niezapisane zmiany!",
             "form": {
@@ -62,10 +69,29 @@
         },
         "irregularExpenses": {
             "header": "Nieregularne wydatki"
+        },
+        "categoryListView": {
+            "loadingError": "Nie można pobrać kategorii.",
+            "reload": "Spróbuj ponownie",
+            "loading": "Pobieranie kategorii"
         }
     },
     "form": {
         "unsavedChanges": "Niezapisane zmiany",
         "newPosition": "Nowa pozycja"
+    },
+    "month": {
+        "0": "Styczeń",
+        "1": "Luty",
+        "2": "Marzec",
+        "3": "Kwiecień",
+        "4": "Maj",
+        "5": "Czerwiec",
+        "6": "Lipiec",
+        "7": "Sierpień",
+        "8": "Wrzesień",
+        "9": "Październik",
+        "10": "Listopad",
+        "11": "Grudzień"
     }
 }

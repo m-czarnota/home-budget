@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Unit\Domain;
 
 use App\Category\Domain\CategoryRepositoryInterface;
@@ -33,9 +35,10 @@ class ListCategoriesServiceTest extends TestCase
         $categories = $this->service->execute();
 
         self::assertCount(count($categoriesInDb), $categories);
+        $categoriesInDbValues = array_values($categoriesInDb);
 
         foreach ($categories as $categoryIndex => $category) {
-            $categoryDataInDb = $categoriesInDb[$categoryIndex];
+            $categoryDataInDb = $categoriesInDbValues[$categoryIndex];
 
             self::assertEquals($categoryDataInDb->id, $category->id);
             self::assertEquals($categoryDataInDb->getPosition(), $category->getPosition());
@@ -50,7 +53,7 @@ class ListCategoriesServiceTest extends TestCase
 
                 self::assertEquals($subCategoryData->id, $subCategory->id);
                 self::assertEquals($subCategoryData->getPosition(), $subCategory->getPosition());
-                self::assertEquals($subCategoryData->isDeleted(), $subCategory->isDeleted());
+                self::assertFalse($subCategory->isDeleted());
                 self::assertCount(count($subCategoryData->getSubCategories()), $subCategory->getSubCategories());
             }
         }

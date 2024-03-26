@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
+        "nelmio/cors-bundle": "^2.4",
         "ramsey/uuid": "^4.7",
         "symfony/console": "7.0.*",
         "symfony/dotenv": "7.0.*",
@@ -59,7 +60,7 @@
         ],
         "fix-cs": [
             "export PHP_CS_FIXER_IGNORE_ENV=false;",
-            "vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix;"
+            "vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --allow-risky=yes;"
         ],
         "behat": [
             "export APP_ENV='test';",

@@ -1,5 +1,5 @@
 <script setup>
-import DescribedContentRow from '../components/DescribedContentRow.vue';
+import DescribedContentRow from '../layout/DescribedContentRow.vue';
 import AddExpense from '../components/Expense/AddExpense.vue';
 import ExpenseList from '../components/Expense/ExpenseList.vue';
 </script>

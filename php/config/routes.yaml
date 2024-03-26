@@ -3,7 +3,7 @@ category_controllers:
         path: ../src/Category/Application/
         namespace: App\Category\Application
     type: attribute
-    prefix: /api/v1/categories
+    prefix: /api/v1
     trailing_slash_on_root: false
 
 person_controllers:
@@ -11,7 +11,7 @@ person_controllers:
         path: ../src/Person/Application/
         namespace: App\Person\Application
     type: attribute
-    prefix: /api/v1/people
+    prefix: /api/v1
     trailing_slash_on_root: false
 
 expense_controllers:
@@ -19,11 +19,5 @@ expense_controllers:
         path: ../src/Expense/Application/
         namespace: App\Expense\Application
     type: attribute
-    prefix: /api/v1/expenses
+    prefix: /api/v1
     trailing_slash_on_root: false
-
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute

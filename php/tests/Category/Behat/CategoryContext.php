@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Behat;
 
+use App\Category\Domain\Category;
 use App\Category\Domain\CategoryNotValidException;
 use App\Category\Domain\CategoryRepositoryInterface;
 use App\Tests\Category\Stub\CategoryStub;
@@ -59,11 +62,67 @@ readonly class CategoryContext implements Context
                 continue;
             }
 
-            $category = CategoryStub::createExampleCategory($categoryData['id'], $categoryData['name']);
+            $category = CategoryStub::createExampleCategory(
+                $categoryData['id'],
+                $categoryData['name'],
+                $categoryData['subCategories'] ?? []
+            );
             $this->categoryRepository->add($category);
         }
 
         $this->entityManager->flush();
+    }
+
+    #[Then('in db there is exist category :categoryId marked as deleted')]
+    public function inDbThereIsExistCategoryMarkedAsDeleted(string $categoryId): void
+    {
+        $category = $this->categoryRepository->findOneById($categoryId);
+        Assert::assertNotNull($category);
+        Assert::assertTrue($category->isDeleted());
+    }
+
+    #[Then('in db there is not exist category :categoryId')]
+    public function inDbThereIsNotExistCategory(string $categoryId): void
+    {
+        $category = $this->categoryRepository->findOneById($categoryId);
+        Assert::assertNull($category);
+    }
+
+    #[Then('categories received in response are sorted by ascending position')]
+    public function categoriesReceivedInResponseAreSortedAscendingByPosition(): void
+    {
+        $categories = $this->browser->getLastResponseContentAsArray();
+        Assert::assertNotEmpty($categories);
+
+        $category = $categories[0];
+        $subCategories = $category['subCategories'];
+        foreach (array_slice($subCategories, 1) as $index => $subCategory) {
+            Assert::assertGreaterThan($subCategories[$index]['position'], $subCategory['position']);
+        }
+
+        foreach (array_slice($categories, 1) as $index => $category) {
+            Assert::assertGreaterThan($categories[$index]['position'], $category['position']);
+
+            $subCategories = $category['subCategories'];
+            foreach (array_slice($subCategories, 1) as $subIndex => $subCategory) {
+                Assert::assertGreaterThan($subCategories[$subIndex]['position'], $subCategory['position']);
+            }
+        }
+    }
+
+    #[Then('categories received in response are not deleted')]
+    public function categoriesReceivedInResponseAreNotDeleted(): void
+    {
+        $categories = $this->browser->getLastResponseContentAsArray();
+        Assert::assertNotEmpty($categories);
+
+        foreach ($categories as $category) {
+            Assert::assertFalse($category['isDeleted']);
+
+            foreach ($category['subCategories'] as $subCategory) {
+                Assert::assertFalse($subCategory['isDeleted']);
+            }
+        }
     }
 
     private function checkIfResponseLooksLikeDummyResponse(array $response, array $dummyResponse): void

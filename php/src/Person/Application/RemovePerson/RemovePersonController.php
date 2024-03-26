@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Person\Application\RemovePerson;
 
 use App\Person\Domain\PersonNotFoundException;
@@ -11,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/{id}', requirements: ['id' => '\S+'], methods: Request::METHOD_DELETE)]
+#[Route('/people/{id}', requirements: ['id' => '\S+'], methods: Request::METHOD_DELETE)]
 class RemovePersonController extends AbstractController
 {
     public function __construct(

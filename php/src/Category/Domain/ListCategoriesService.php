@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Category\Domain;
 
 readonly class ListCategoriesService
@@ -14,6 +16,23 @@ readonly class ListCategoriesService
      */
     public function execute(): array
     {
-        return $this->categoryRepository->findList();
+        $categories = $this->categoryRepository->findList();
+        $listCategories = [];
+
+        foreach ($categories as $category) {
+            if ($category->isDeleted()) {
+                continue;
+            }
+
+            foreach ($category->getSubCategories() as $subCategory) {
+                if ($subCategory->isDeleted()) {
+                    $category->removeSubCategory($subCategory);
+                }
+            }
+
+            $listCategories[] = $category;
+        }
+
+        return $listCategories;
     }
 }

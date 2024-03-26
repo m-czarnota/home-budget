@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Expense\Unit\Application\AddCurrentExpense;
 
 use App\Expense\Application\AddCurrentExpense\RequestValidator;

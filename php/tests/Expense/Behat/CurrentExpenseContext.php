@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Expense\Behat;
 
 use App\Category\Domain\CategoryRepositoryInterface;

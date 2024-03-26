@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Domain;
 
 use App\Category\Domain\Category;

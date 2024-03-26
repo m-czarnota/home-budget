@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Person\Infrastructure\ORM;
 
 use App\Person\Domain\Person;

@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Category\Application\UpdateCategories;
 
+use App\Category\Application\UpdateCategories\Request\RequestMapperToModels;
+use App\Category\Application\UpdateCategories\Request\RequestNotValidException;
+use App\Category\Application\UpdateCategories\Request\RequestValidator;
 use App\Category\Domain\UpdateCategoriesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(methods: [Request::METHOD_PUT])]
+#[Route('/categories', methods: [Request::METHOD_PUT])]
 class UpdateCategoriesController extends AbstractController
 {
     public function __construct(
@@ -18,6 +23,7 @@ class UpdateCategoriesController extends AbstractController
         private readonly UpdateCategoriesService $updateCategoriesService,
         private readonly RequestMapperToModels $requestMapperToModels,
         private readonly RequestValidator $requestValidator,
+        private readonly CategoryConnectionChecker $categoryConnectionChecker,
     ) {
     }
 
@@ -38,7 +44,9 @@ class UpdateCategoriesController extends AbstractController
             return new JsonResponse($e->getMessage(), Response::HTTP_NOT_ACCEPTABLE, json: true);
         }
 
-        $categoryModels = $this->updateCategoriesService->execute(...$categoryModels);
+        $categoriesDeletionInfo = $this->categoryConnectionChecker->execute(...$categoryModels);
+
+        $categoryModels = $this->updateCategoriesService->execute($categoriesDeletionInfo, ...$categoryModels);
         $this->entityManager->flush();
 
         return new JsonResponse($categoryModels);

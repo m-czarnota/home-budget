@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Person\Unit\Domain;
 
 use App\Person\Domain\Person;

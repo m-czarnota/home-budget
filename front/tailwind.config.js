@@ -18,6 +18,7 @@ export default {
     },
   },
   plugins: [
+    require("daisyui"),
     // plugin(function({ addBase }) {
     //   addBase({
     //     '@font-face': {
@@ -28,5 +29,15 @@ export default {
     //   });
     // }),
   ],
+  daisyui: {
+    themes: ['light'],
+    darkTheme: "dark",
+    base: true,
+    styled: true,
+    utils: true,
+    prefix: "",
+    logs: true,
+    themeRoot: ":root",
+  },
 }
 

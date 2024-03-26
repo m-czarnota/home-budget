@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Infrastructure\ORM;
 
+use App\Category\Domain\Category;
 use App\Expense\Domain\IrregularExpense;
 use App\Expense\Domain\IrregularExpenseRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -52,5 +55,17 @@ class DoctrineIrregularExpenseRepository extends ServiceEntityRepository impleme
             ->where($qb->expr()->notIn('ie.id', $ids))
             ->getQuery()
             ->execute();
+    }
+
+    public function hasCategoryAnyConnection(Category $category): bool
+    {
+        $qb = $this->createQueryBuilder('ir');
+
+        return $qb
+                ->select($qb->expr()->count('ir.id'))
+                ->where('ir.category = :categoryId')
+                ->setParameter('categoryId', $category->id)
+                ->getQuery()
+                ->getSingleScalarResult() !== 0;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Application\RemoveCurrentExpense;
 
 use App\Expense\Domain\ExpenseNotFoundException;
@@ -11,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/current/{id}', requirements: ['id' => '\S+'], methods: Request::METHOD_DELETE)]
+#[Route('/expenses/current/{id}', requirements: ['id' => '\S+'], methods: Request::METHOD_DELETE)]
 class RemoveCurrentExpenseController extends AbstractController
 {
     public function __construct(

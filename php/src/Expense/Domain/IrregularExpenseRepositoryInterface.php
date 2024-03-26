@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Expense\Domain;
+
+use App\Category\Domain\Category;
 
 interface IrregularExpenseRepositoryInterface
 {
@@ -16,4 +20,6 @@ interface IrregularExpenseRepositoryInterface
     public function findList(): array;
 
     public function removeNotInList(IrregularExpense ...$irregularExpenses): void;
+
+    public function hasCategoryAnyConnection(Category $category): bool;
 }

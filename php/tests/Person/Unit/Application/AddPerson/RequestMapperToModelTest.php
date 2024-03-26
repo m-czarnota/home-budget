@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Person\Unit\Application\AddPerson;
 
 use App\Person\Application\AddPerson\RequestMapperToModel;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Category\Domain;
 
 use DateTimeImmutable;
@@ -30,7 +32,7 @@ class Category implements JsonSerializable
         private int $position = 0,
         ?DateTimeImmutable $lastModified = null,
     ) {
-        $this->id = $id ?? Uuid::uuid7();
+        $this->id = $id ?? Uuid::uuid7()->toString();
         $this->lastModified = $lastModified ?? new DateTimeImmutable();
         $this->subCategories = new ArrayCollection();
 
@@ -41,13 +43,20 @@ class Category implements JsonSerializable
     }
 
     /**
+     * Updates this category and their subcategories.
+     *
+     * Removes subcategories from this category which don't exist in updated category.
+     * Marks as deleted removed subcategories based on deletion info.
+     *
      * @throws SubCategoryNotBelongToCategoryException
      */
-    public function update(self $category): self
+    public function update(self $category, ?CategoryDeletionInfo $categoryDeletionInfo = null): self
     {
+        // update this category
         $this->name = $category->name;
         $this->position = $category->position;
 
+        // adding new subcategories or update existing
         foreach ($category->getSubCategories() as $subCategory) {
             if ($this->hasSubCategory($subCategory)) {
                 $this->updateSubCategory($subCategory);
@@ -56,11 +65,44 @@ class Category implements JsonSerializable
             }
         }
 
+        // removing subcategories that not exist in updated category
         foreach ($this->getSubCategories() as $subCategory) {
-            if (!$category->hasSubCategory($subCategory)) {
-                $this->removeSubCategory($subCategory);
+            if ($category->hasSubCategory($subCategory)) {
+                continue;
+            }
+
+            $this->removeSubCategory($subCategory);
+
+            // mark as deleted in various conditions if deletion info is provided
+            if ($categoryDeletionInfo) {
+                $subCategoryDeletionInfo = $categoryDeletionInfo->getSubCategory($subCategory->id);
+                $subCategory->markAsDeletedIfAllowed($subCategoryDeletionInfo);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Mark category as deleted if category should be removed, but they cannot be removed because it isn't deletable.
+     * Also, the method marks subcategories of this category in the same way.
+     *
+     * @param CategoryDeletionInfo $categoryDeletionInfo contains data for this category and their subcategories about deletion
+     *
+     * @return $this
+     */
+    public function markAsDeletedIfAllowed(CategoryDeletionInfo $categoryDeletionInfo): self
+    {
+        assert($this->id === $categoryDeletionInfo->id, 'Ids must be the same');
+
+        foreach ($categoryDeletionInfo->getSubCategories() as $subCategoryDeletionInfo) {
+            $subCategory = $this->subCategories[$subCategoryDeletionInfo->id] ?? null;
+            assert($subCategory !== null, "Subcategory doesn't exist");
+
+            $subCategory->markAsDeletedIfAllowed($subCategoryDeletionInfo);
+        }
+
+        $this->isDeleted = !$categoryDeletionInfo->isDeletable();
 
         return $this;
     }
@@ -92,9 +134,9 @@ class Category implements JsonSerializable
     /**
      * @return array<int, self>
      */
-    public function getSubCategories(): array
+    public function getSubCategories(bool $withKeys = false): array
     {
-        return $this->subCategories->getValues();
+        return $withKeys ? $this->subCategories->toArray() : $this->subCategories->getValues();
     }
 
     public function jsonSerialize(): array
@@ -102,10 +144,10 @@ class Category implements JsonSerializable
         return array_merge(
             $this->toSimpleArray(),
             [
-                'subCategories' => array_map(
+                'subCategories' => array_values(array_map(
                     fn (self $category) => $category->toSimpleArray(),
                     $this->subCategories->toArray()
-                ),
+                )),
             ],
         );
     }
@@ -165,7 +207,7 @@ class Category implements JsonSerializable
             'name' => $this->name,
             'position' => $this->position,
             'isDeleted' => $this->isDeleted,
-            'lastModified' => $this->lastModified,
+            'lastModified' => $this->lastModified->format('Y-m-d H:i:s'),
         ];
     }
 }

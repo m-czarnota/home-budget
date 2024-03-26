@@ -6,6 +6,33 @@
   /* html {
     @apply font-inter;
   } */
+  
+  .app-input, .app-button {
+    @apply border border-purple-600 rounded-full py-1 px-4;
+    @apply transition-all duration-300;
+    @apply hover:border-purple-500;  
+    @apply focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-700;
+    @apply hover:shadow-md focus:shadow-md hover:shadow-purple-100 focus:shadow-purple-100;
+  }
+
+  .app-input:disabled {
+    @apply hover:shadow-none focus:shadow-none;
+    @apply hover:border-purple-900;
+    @apply cursor-not-allowed;
+    @apply border-purple-900;
+  }
+
+  .app-button {
+    @apply bg-purple-500 text-slate-100 font-medium;
+    @apply hover:text-slate-800 hover:bg-purple-200 hover:shadow-lg;
+    @apply focus:bg-purple-200 focus:shadow-lg;
+  }
+
+  .app-button:disabled {
+    @apply w-1/2 mx-auto;
+    @apply bg-gray-400 text-slate-100 font-medium;
+    @apply border-transparent opacity-50 cursor-not-allowed;
+  }
 
   body {
     @apply bg-slate-300;
@@ -18,38 +45,23 @@
   form input[type="text"], 
   form input[type="number"], 
   form input[type="checkbox"], 
-  form select, 
-  form button[type="submit"],
-  form button[type="button"],
-  .category-list input {
-    @apply border border-purple-600 rounded-full py-1 px-4;
-    @apply transition-all duration-300;
-    @apply hover:border-purple-500;  
-    @apply focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-700;
-    @apply hover:shadow-md focus:shadow-md hover:shadow-purple-100 focus:shadow-purple-100;
+  form select {
+    @apply app-input;
   }
 
-  form input:disabled {
-    @apply hover:shadow-none focus:shadow-none;
-    @apply hover:border-purple-900;
-    @apply cursor-not-allowed;
-    @apply border-purple-900;
-  }
-
-  form button[type="submit"]:not(:disabled) {
-    @apply w-1/2 mx-auto;
-    @apply bg-purple-500 text-slate-100 font-medium;
-    @apply hover:text-slate-800 hover:bg-purple-200 hover:shadow-lg;
-    @apply focus:bg-purple-200 focus:shadow-lg;
-  }
-
-  form button[type="submit"]:disabled {
-    @apply w-1/2 mx-auto;
-    @apply bg-gray-400 text-slate-100 font-medium;
-    @apply border-transparent opacity-50 cursor-not-allowed;
+  form button[type="submit"] {
+    @apply app-button;
+    @apply px-20 mx-auto;
+    @apply w-1/2;
   }
 
   form button[type="button"] {
+    @apply app-button;
+    @apply bg-transparent;
+    @apply text-slate-700;
+  }
+
+  form button[type="button"].secondary {
     @apply w-fit;
     @apply bg-slate-600 text-slate-100 font-medium border-slate-600;
     @apply hover:bg-slate-100 hover:text-slate-800 hover:border-slate-600;
@@ -66,14 +78,6 @@
 
   nav hr {
     @apply my-3 rounded;
-  }
-
-  .category-list input {
-    @apply py-1;
-  }
-
-  .subcategory-list input {
-    @apply py-0.5;
   }
 
   .category {

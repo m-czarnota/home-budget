@@ -1,6 +1,6 @@
 <script setup>
-import CurrentIrregularExpenses from '../components/Budget/CurrentIrregularExpenses.vue';
-import DescribedContentRow from '../components/DescribedContentRow.vue'
+import IrregularExpenses from '../components/Budget/IrregularExpenses.vue';
+import DescribedContentRow from '../layout/DescribedContentRow.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import DescribedContentRow from '../components/DescribedContentRow.vue'
             <h2 class="mt-5 mb-2 text-3xl font-bold">{{ $t('view.irregularExpenses.header') }}</h2>
         </template>
         <template #content>
-            <CurrentIrregularExpenses class="mx-auto w-full"/>
+            <IrregularExpenses class="mx-auto w-full"/>
         </template>
     </DescribedContentRow>
 </template>

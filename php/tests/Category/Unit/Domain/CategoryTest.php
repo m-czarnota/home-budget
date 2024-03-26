@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Unit\Domain;
 
 use App\Category\Domain\Category;
 use App\Category\Domain\CategoryNotValidException;
 use App\Category\Domain\SubCategoryNotBelongToCategoryException;
+use App\Tests\Category\Stub\CategoryDeletionInfoStub;
 use App\Tests\Category\Stub\CategoryStub;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -222,5 +225,108 @@ class CategoryTest extends TestCase
 
         $category->removeSubCategory($subCategory);
         self::assertCount(0, $category->getSubCategories());
+    }
+
+    /**
+     * @dataProvider markAsDeletedIfAllowedDataProvider
+     */
+    public function testMarkAsDeletedIfAllowed(array $categoryDeletionInfoData, array $categoryData, array $exceptedIsDeletedValues): void
+    {
+        $categoryDeletionInfo = CategoryDeletionInfoStub::createFromArrayData($categoryDeletionInfoData);
+        $category = CategoryStub::createFromArrayData($categoryData);
+
+        $category->markAsDeletedIfAllowed($categoryDeletionInfo);
+
+        self::assertSame($exceptedIsDeletedValues['category'], $category->isDeleted());
+        foreach ($category->getSubCategories() as $index => $subCategory) {
+            $exceptedValue = $exceptedIsDeletedValues['subCategories'][$index];
+            self::assertSame($exceptedValue, $subCategory->isDeleted());
+        }
+    }
+
+    public static function markAsDeletedIfAllowedDataProvider(): array
+    {
+        return [
+            'main category is marked as deleted due to one of subcategory is marked as deleted' => [
+                'categoryDeletionInfoData' => [
+                    'id' => 'category-1',
+                    'canBeDeleted' => false,
+                    'subCategories' => [
+                        [
+                            'id' => 'sub-category-1.1',
+                            'canBeDeleted' => false,
+                        ],
+                        [
+                            'id' => 'sub-category-1.2',
+                            'canBeDeleted' => true,
+                        ],
+                    ],
+                ],
+                'categoryData' => [
+                    'id' => 'category-1',
+                    'name' => 'Category 1',
+                    'position' => 0,
+                    'subCategories' => [
+                        [
+                            'id' => 'sub-category-1.1',
+                            'name' => 'Sub Category 1.1',
+                            'position' => 0,
+                        ],
+                        [
+                            'id' => 'sub-category-1.2',
+                            'name' => 'Sub Category 1.2',
+                            'position' => 1,
+                        ],
+                    ],
+                ],
+                'exceptedIsDeletedValues' => [
+                    'category' => true,
+                    'subCategories' => [
+                        true,
+                        false,
+                    ],
+                ],
+            ],
+            'main category is not marked as deleted, because all subcategories are also not marker as deleted' => [
+                'categoryDeletionInfoData' => [
+                    'id' => 'category-1',
+                    'canBeDeleted' => true,
+                    'subCategories' => [
+                        [
+                            'id' => 'sub-category-1.1',
+                            'canBeDeleted' => true,
+                        ],
+                        [
+                            'id' => 'sub-category-1.2',
+                            'canBeDeleted' => true,
+                        ],
+                    ],
+                ],
+                'categoryData' => [
+                    'id' => 'category-1',
+                    'name' => 'Category 1',
+                    'position' => 0,
+                    'subCategories' => [
+                        [
+                            'id' => 'sub-category-1.1',
+                            'name' => 'Sub Category 1.1',
+                            'position' => 0,
+                        ],
+                        [
+                            'id' => 'sub-category-1.2',
+                            'name' => 'Sub Category 1.2',
+                            'position' => 1,
+                        ],
+                    ],
+                ],
+                'exceptedIsDeletedValues' => [
+                    'category' => false,
+                    'subCategories' => [
+                        false,
+                        false,
+                    ],
+                ],
+            ],
+        ];
     }
 }
