@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Unit\Domain;
 
 use App\Category\Domain\CategoryDeletionInfo;
@@ -8,11 +10,6 @@ use PHPUnit\Framework\TestCase;
 class CategoryDeletionInfoTest extends TestCase
 {
     /**
-     * @param bool $canBeDeleted
-     * @param array $subCategoriesCanBeDeleted
-     * @param array $expectedIsDeletableData
-     * @return void
-     *
      * @dataProvider isDeletableDataProvider
      */
     public function testIsDeletable(bool $canBeDeleted, array $subCategoriesCanBeDeleted, array $expectedIsDeletableData): void
@@ -29,7 +26,7 @@ class CategoryDeletionInfoTest extends TestCase
         foreach ($categoryDeletionInfo->getSubCategories() as $subCategoryDeletionInfo) {
             $isSubCategoryDeletable = $expectedIsDeletableData['subCategories'][$i];
             self::assertSame($isSubCategoryDeletable, $subCategoryDeletionInfo->isDeletable());
-            $i++;
+            ++$i;
         }
     }
 

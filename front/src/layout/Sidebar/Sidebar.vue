@@ -33,6 +33,7 @@ provide('collapsed', collapsed);
                 <SidebarLink :to="RouteGenerator.generateRoute('category_list')" icon="fa-solid fa-folder-tree" :name="$t('nav.categories')"/>
                 <SidebarLink :to="RouteGenerator.generateRoute('prepare_budget')" icon="fa-solid fa-sack-dollar" :name="$t('nav.prepareBudget')"/>
                 <SidebarLink :to="RouteGenerator.generateRoute('irregular_expenses')" icon="fa-solid fa-scale-unbalanced-flip" :name="$t('nav.irregularExpenses')"/>
+                <SidebarLink :to="RouteGenerator.generateRoute('people')" icon="fa-solid fa-people-roof" :name="$t('nav.people')"/>
             </div>
         </div>
 

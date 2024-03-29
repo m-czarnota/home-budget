@@ -19,6 +19,8 @@ import {
     faFloppyDisk,
     faCirclePlus,
     faXmark,
+    faPeopleRoof,
+    faCloudArrowUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faCircleCheck,
@@ -43,7 +45,9 @@ library.add(
     faScaleUnbalancedFlip,
     faFloppyDisk,
     faCirclePlus,
-    faXmark
+    faXmark,
+    faPeopleRoof,
+    faCloudArrowUp,
 );
 library.add(
     faCircleCheck,

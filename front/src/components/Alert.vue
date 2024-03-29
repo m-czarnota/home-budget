@@ -12,7 +12,12 @@ const props = defineProps({
     message: {
         type: String,
         required: true,
-    }
+    },
+    canBeClosed: {
+        type: Boolean,
+        required: false,
+        default: true,
+    },
 });
 const emit = defineEmits(['closed']);
 
@@ -47,7 +52,9 @@ const icon = computed(() => {
         <div class="relative flex items-center gap-2 w-full">
             <font-awesome-icon :icon="icon"/>
             <p>{{ message }}</p>
+            
             <button 
+                v-if="canBeClosed"
                 type="button" 
                 class="alert-dismiss absolute right-0 flex items-center justify-center p-0.5 rounded-full size-6 transition-colors duration-150 hover:text-gray-50 hover:bg-slate-700"
                 @click.once="$emit('closed')"

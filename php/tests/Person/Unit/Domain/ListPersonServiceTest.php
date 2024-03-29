@@ -43,7 +43,7 @@ class ListPersonServiceTest extends TestCase
             $personDataInDb = $dataFromDb[$personIndex];
 
             self::assertEquals($personDataInDb['id'], $person->id);
-            self::assertEquals($personDataInDb['name'], $person->name);
+            self::assertEquals($personDataInDb['name'], $person->getName());
         }
     }
 

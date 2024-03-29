@@ -19,8 +19,12 @@ const routes = {
     },
     irregular_expenses: {
         path: '/irregular-expenses',
-        component: () => import('../Expense/view/IrregularExpenseList.vue')
-    }
+        component: () => import('../Expense/view/IrregularExpenseList.vue'),
+    },
+    people: {
+        path: '/people',
+        component: () => import('../Person/view/PersonListView.vue'),
+    },
 };
 
 export default routes;

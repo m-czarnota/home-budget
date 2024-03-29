@@ -129,6 +129,12 @@ const createNewCategory = async () => {
     newCategoryName.value = '';
 }
 
+// ------------------- viewing no categories -------------------
+const isNoCategories = computed(() => {
+    return categoriesDv.length === 0 && isNewCategoryAdding.value === false;
+});
+
+
 // ----------------------------- changes in any category -----------------------------
 const originalState = ref(JSON.stringify(categoriesDv.map(categoryDv => categoryDv.stringify())));
 const hasAnythingBeenChanged = computed(() => {
@@ -218,6 +224,10 @@ const submit = async () => {
             <span>{{ $t('component.irregularExpenses.unsavedChanges') }}</span>
         </p>
 
+        <p v-if="isNoCategories" class="p-2">
+            {{ $t('component.categoryList.noCategories') }}
+        </p>
+
         <draggable :list="categoriesDv" tag="ul" item-key="index" :animation="300">
             <template #item="{ element: categoryDv }">
                 <li class="px-2 my-2">
@@ -267,7 +277,14 @@ const submit = async () => {
         </draggable>
 
         <div class="px-4">
-            <button v-if="!isNewCategoryAdding" type="button" class="hover:text-purple-600 text-lg" @click.stop="isNewCategoryAdding = true" :title="$t('component.categoryList.category.add')">
+            <button 
+                v-if="!isNewCategoryAdding" 
+                type="button" 
+                class="hover:text-purple-600 text-lg" 
+                :class="{'animate-bounce': isNoCategories}"
+                @click.stop="isNewCategoryAdding = true" 
+                :title="$t('component.categoryList.category.add')"
+            >
                 <font-awesome-icon icon="fa-solid fa-folder-plus" />
             </button>
 

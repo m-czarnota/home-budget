@@ -4,7 +4,8 @@
         "expenses": "Wydatki",
         "categories": "Kategorie",
         "prepareBudget": "Przygotuj budżet",
-        "irregularExpenses": "Nieregularne wydatki"
+        "irregularExpenses": "Nieregularne wydatki",
+        "people": "Osoby"
     },
     "component": {
         "addExpense": {
@@ -44,7 +45,8 @@
                 "delete": "Usuń subkategorię",
                 "change": "Zmień subkategorię",
                 "edit": "Edytuj subkategorię"
-            }
+            },
+            "noCategories": "Nie ma tutaj jeszcze żadnej kategorii. Dodaj pierwszą!"
         },
         "budgetCreate": {
             "form": {
@@ -61,7 +63,20 @@
                 "editName": "Edytuj nazwe",
                 "changeName": "Zmień nazwe"
             }
-        }
+        },
+        "personList": {
+            "noPeople": "Nie ma tutaj jeszcze żadnej osoby. Dodaj pierwszą!",
+            "person": {
+                "add": "Dodaj nową osobę",
+                "create": "Utwórz nową osobę",
+                "delete": "Usuń osobę",
+                "edit": "Edytuj osobę",
+                "change": "Zmień osobę",
+                "new": "Nowa osoba"
+            },
+            "removeFail": "Usunięcie osoby nie powiodło się. Spróbuj ponownie.",
+            "saveFail": "Zapisanie osoby nie powiodło się. Spróbuj ponownie."
+        }  
     },
     "view": {
         "prepareBudget": {
@@ -74,11 +89,20 @@
             "loadingError": "Nie można pobrać kategorii.",
             "reload": "Spróbuj ponownie",
             "loading": "Pobieranie kategorii"
+        },
+        "personList": {
+            "header": "Lista osób",
+            "description": "Osoby są istotną częścią wydatków. Pozwalają na przejrzystość wydatków - które z nich są wspólne, a które dotyczą tylko jednej, poszczególnej osoby.",
+            "loadingError": "Nie można pobrać osób.",
+            "reload": "Spróbuj ponownie",
+            "loading": "Pobieranie osób"
         }
     },
     "form": {
         "unsavedChanges": "Niezapisane zmiany",
-        "newPosition": "Nowa pozycja"
+        "newPosition": "Nowa pozycja",
+        "cancel": "Anuluj",
+        "save": "Zapisz"
     },
     "month": {
         "0": "Styczeń",

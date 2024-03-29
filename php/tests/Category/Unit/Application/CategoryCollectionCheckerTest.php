@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Category\Unit\Application;
 
 use App\Category\Application\UpdateCategories\CategoryConnectionChecker;
@@ -30,12 +32,6 @@ class CategoryCollectionCheckerTest extends TestCase
     }
 
     /**
-     * @param array $categoriesData
-     * @param array $currentExpenseConnectionsData
-     * @param array $irregularExpenseConnectionsData
-     * @param array $expectedIsDeletableData
-     * @return void
-     *
      * @dataProvider executeDataProvider
      */
     public function testExecute(
@@ -61,7 +57,7 @@ class CategoryCollectionCheckerTest extends TestCase
         $this->currentExpenseRepository
             ->method('hasCategoryAnyConnection')
             ->willReturnMap(array_map(
-                fn(string $categoryId, bool $connection) => [$flattedCategories[$categoryId], $connection],
+                fn (string $categoryId, bool $connection) => [$flattedCategories[$categoryId], $connection],
                 array_keys($currentExpenseConnectionsData),
                 $currentExpenseConnectionsData
             ));
@@ -69,7 +65,7 @@ class CategoryCollectionCheckerTest extends TestCase
         $this->irregularExpenseRepository
             ->method('hasCategoryAnyConnection')
             ->willReturnMap(array_map(
-                fn(string $categoryId, bool $connection) => [$flattedCategories[$categoryId], $connection],
+                fn (string $categoryId, bool $connection) => [$flattedCategories[$categoryId], $connection],
                 array_keys($irregularExpenseConnectionsData),
                 $irregularExpenseConnectionsData
             ));
@@ -140,7 +136,7 @@ class CategoryCollectionCheckerTest extends TestCase
                     ],
                     'category-2' => [
                         'isDeletable' => false,
-                    ]
+                    ],
                 ],
             ],
         ];

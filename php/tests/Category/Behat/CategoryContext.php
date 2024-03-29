@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Category\Behat;
 
-use App\Category\Domain\Category;
 use App\Category\Domain\CategoryNotValidException;
 use App\Category\Domain\CategoryRepositoryInterface;
 use App\Tests\Category\Stub\CategoryStub;

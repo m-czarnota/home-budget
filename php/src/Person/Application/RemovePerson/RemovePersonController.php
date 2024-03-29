@@ -25,9 +25,10 @@ class RemovePersonController extends AbstractController
     public function __invoke(string $id): JsonResponse
     {
         try {
+            // TODO remove with checking relations
             $this->service->execute($id);
         } catch (PersonNotFoundException $exception) {
-            return new JsonResponse($exception->getMessage(), Response::HTTP_NOT_ACCEPTABLE);
+            return new JsonResponse($exception->getMessage(), Response::HTTP_NOT_FOUND);
         }
 
         $this->entityManager->flush();

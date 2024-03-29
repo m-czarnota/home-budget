@@ -4,7 +4,8 @@
         "expenses": "Expenses",
         "categories": "Categories",
         "prepareBudget": "Prepare budget",
-        "irregularExpenses": "Irregular expenses"
+        "irregularExpenses": "Irregular expenses",
+        "people": "People"
     },
     "component": {
         "addExpense": {
@@ -43,7 +44,8 @@
                 "delete": "Delete the subcategory",
                 "change": "Change the subcategory",
                 "edit": "Edit the subcategory"
-            }
+            },
+            "noCategories": "There are no categories here yet. Add your first thought!"
         },
         "budgetCreate": {
             "form": {
@@ -60,6 +62,19 @@
                 "editName": "Edit name",
                 "changeName": "Change name"
             }
+        },
+        "personList": {
+            "noPeople": "There are no person here yet. Add your first thought!",
+            "person": {
+                "add": "Add a new person",
+                "create": "Create a new person",
+                "delete": "Delete the person",
+                "edit": "Edit the person",
+                "change": "Change the person",
+                "newPerson": "New person"
+            },
+            "removeFail": "Removing person failed. Try again.",
+            "saveFail": "Saving person failed. Try again."
         }  
     },
     "view": {
@@ -73,11 +88,19 @@
             "loadingError": "Cannot fetch categories.",
             "reload": "Try again",
             "loading": "Fetching categories"
+        },
+        "personList": {
+            "header": "List of people",
+            "description": "Individuals are an important part of expenses. They allow transparency of expenses - which ones are shared and which ones involve only one individual person.",
+            "loadingError": "Cannot fetch people.",
+            "reload": "Try again",
+            "loading": "Fetching categories"
         }
     },
     "form": {
         "unsavedChanges": "Unsaved changes",
-        "newPosition": "New position"
+        "newPosition": "New position",
+        "cancel": "Cancel"
     },
     "month": {
         "0": "January",

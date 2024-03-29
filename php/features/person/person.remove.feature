@@ -15,5 +15,5 @@ Feature:
 
   Scenario: User tries to remove person who not exist and he gets error
     When I open "DELETE" page "/api/v1/people/non-existed-person-2132345"
-    Then the response with code "406" should be received
+    Then the response with code "404" should be received
     And the response should contains message "Person `non-existed-person-2132345` does not exist"

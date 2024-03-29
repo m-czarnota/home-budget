@@ -16,6 +16,19 @@ export class HttpClient {
         );
     }
 
+    public static async post(
+        resource: RequestInfo,
+        requestParams?: FormData|Object,
+        httpHeader?: HttpClientHeader, 
+    ): Promise<HttpResponse> {
+        return HttpClient.createRequest(
+            resource,
+            HttpClientMethodEnum.POST,
+            requestParams,
+            httpHeader,
+        );
+    }
+
     public static async put(
         resource: RequestInfo,
         requestParams?: FormData|Object,
@@ -24,6 +37,32 @@ export class HttpClient {
         return HttpClient.createRequest(
             resource,
             HttpClientMethodEnum.PUT,
+            requestParams,
+            httpHeader,
+        );
+    }
+
+    public static async delete(
+        resource: RequestInfo,
+        requestParams?: FormData|Object,
+        httpHeader?: HttpClientHeader, 
+    ): Promise<HttpResponse> {
+        return HttpClient.createRequest(
+            resource,
+            HttpClientMethodEnum.DELETE,
+            requestParams,
+            httpHeader,
+        );
+    }
+
+    public static async patch(
+        resource: RequestInfo,
+        requestParams?: FormData|Object,
+        httpHeader?: HttpClientHeader, 
+    ): Promise<HttpResponse> {
+        return HttpClient.createRequest(
+            resource,
+            HttpClientMethodEnum.PATCH,
             requestParams,
             httpHeader,
         );
@@ -60,7 +99,7 @@ export class HttpClient {
         }
         
         const response = await fetch(path, requestInit);
-        const body = await response.json();
+        const body = ![204].includes(response.status) ? await response.json(): null;
 
         return {
             isOk: response.ok,
