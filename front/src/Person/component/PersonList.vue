@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, computed } from 'vue';
 
-import VListElement from '../../Category/component/VListElement.vue';
+import VListItem from '../../components/List/VListItem.vue';
 import Alert from '../../components/Alert.vue';
 
 import { Person } from '../data/model/Person';
@@ -131,7 +131,7 @@ const isNoPeople = computed(() => {
                 :can-be-closed="false"
                 :message="$t('component.personList.saveFail')"/>
 
-            <VListElement
+            <VListItem
                 class="px-2 py-4"
                 :class="{'shadow-inner shadow-red-300': personDv.isSaveFail}"
                 :is-editable="true" 

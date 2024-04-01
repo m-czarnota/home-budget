@@ -8,6 +8,17 @@
         "people": "Osoby"
     },
     "component": {
+        "list": {
+            "item": {
+                "change": "Zmień pozycję",
+                "edit": "Edytuj pozycję",
+                "delete": "Usuń pozycję"
+            },
+            "expandableItem": {
+                "addSubItem": "Dodaj podpozycję",
+                "subItemsCount": "Liczba podpozycji"
+            }
+        },
         "addExpense": {
             "header": "Dodaj nowy wydatek",
             "expense": "Wydatek",

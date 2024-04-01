@@ -3,7 +3,7 @@ import { reactive, ref, computed, Ref } from 'vue';
 import draggable from 'vuedraggable';
 import { useI18n } from 'vue-i18n';
 
-import VListElement from './VListElement.vue';
+import VListExpandableItem from '../../components/List/VListExpandableItem.vue'
 import Alert from '../../components/Alert.vue';
 
 import { CategoryService } from '../data/service/CategoryService';
@@ -231,7 +231,7 @@ const submit = async () => {
         <draggable :list="categoriesDv" tag="ul" item-key="index" :animation="300">
             <template #item="{ element: categoryDv }">
                 <li class="px-2 my-2">
-                    <v-list-element 
+                    <VListExpandableItem 
                         @click.stop="toggleExpanding(categoryDv)"
                         :title="categoryTitle(categoryDv)"
                         class="px-2 py-4"
@@ -250,7 +250,7 @@ const submit = async () => {
                     <draggable :list="categoryDv.subCategories" tag="ul" item-key="index" :animation="300" v-if="canViewSubcategories(categoryDv)" class="subcategories">
                         <template #item="{ element: subcategory }">
                             <li class="flex px-2 my-2">
-                                <v-list-element
+                                <VListExpandableItem
                                     class="p-2"
                                     :is-editable="true"
                                     :value="subcategory.name"
