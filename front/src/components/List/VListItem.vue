@@ -87,17 +87,36 @@ const completeEdition = () => {
         <div class="flex gap-2 ml-2">
             <slot name="buttons"/>
 
-            <button type="button" title="Try again" class="text-purple-600 flex justify-center items-center" v-if="isSaveFail || isSavingProgress" @click="completeEdition()" :disabled="isSavingProgress">
+            <button 
+                type="button" 
+                title="Try again" 
+                class="text-purple-600 flex justify-center items-center" 
+                v-if="isSaveFail || isSavingProgress" 
+                @click="completeEdition()" 
+                :disabled="isSavingProgress"
+            >
                 <span class="loading loading-spinner loading-sm" v-if="isSavingProgress"></span>
                 <font-awesome-icon icon="fa-solid fa-cloud-arrow-up" v-else/>
             </button>
 
-            <button type="button" v-if="isEditable" class="hover:text-purple-600" @click.stop="switchEdition()" :disabled="isSavingProgress">
+            <button 
+                type="button" 
+                v-if="isEditable" 
+                class="hover:text-purple-600" 
+                @click.stop="switchEdition()" 
+                :disabled="isSavingProgress"
+            >
                 <font-awesome-icon icon="fa-regular fa-circle-check" v-if="isEdited" :title="$t('component.list.item.change')"/>
                 <font-awesome-icon icon="fa-solid fa-file-pen" v-else :title="$t('component.list.item.edit')"/>
             </button>
 
-            <button type="button" class="hover:text-purple-600" :disabled="isSavingProgress" @click.stop="$emit('remove')" :title="$t('component.list.item.delete')">
+            <button 
+                type="button" 
+                class="hover:text-purple-600" 
+                :disabled="isSavingProgress" 
+                @click.stop="$emit('remove')" 
+                :title="$t('component.list.item.delete')"
+            >
                 <font-awesome-icon icon="fa-solid fa-trash" />
             </button>
         </div>

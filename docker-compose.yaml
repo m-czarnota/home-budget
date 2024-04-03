@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   vite:
     container_name: home-budget-node

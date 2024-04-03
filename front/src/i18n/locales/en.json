@@ -66,13 +66,16 @@
         "irregularExpenses": {
             "onCurrentYear": "On current year",
             "unsavedChanges": "You have unsaved changes!",
-            "form": {
+            "expense": {
+                "name": "Expense",
+                "cost": "Cost",
+                "category": "Category",
                 "whim": "Whim",
                 "addNew": "Add new",
-                "save": "Save",
                 "editName": "Edit name",
                 "changeName": "Change name"
-            }
+            },
+            "save": "Save"
         },
         "personList": {
             "noPeople": "There are no person here yet. Add your first thought!",
@@ -86,7 +89,7 @@
             },
             "removeFail": "Removing person failed. Try again.",
             "saveFail": "Saving person failed. Try again."
-        }  
+        }
     },
     "view": {
         "prepareBudget": {

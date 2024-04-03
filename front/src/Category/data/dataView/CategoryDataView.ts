@@ -2,11 +2,11 @@ import { Category } from "../model/Category";
 import { SubCategories, SubCategory } from "../model/SubCategory";
 
 export class CategoryDataView {
-    public newSubcategoryName: String = '';
+    public newSubcategoryName: string = '';
 
-    private _isExpanded: Boolean = false;
-    private _isEdited: Boolean = false;
-    private _isInAddingNewSubcategory: Boolean = false;
+    private _isExpanded: boolean = false;
+    private _isEdited: boolean = false;
+    private _isInAddingNewSubcategory: boolean = false;
 
     constructor(
         public category: Category,
@@ -31,15 +31,15 @@ export class CategoryDataView {
         return this.category.subCategories;
     }
 
-    public subCategoriesCount(): Number {
+    public subCategoriesCount(): number {
         return this.category.subCategories.length;
     }
 
-    public stringify(): String {
+    public stringify(): string {
         return JSON.stringify(this.category);
     }
 
-    public get isExpanded(): Boolean {
+    public get isExpanded(): boolean {
         return this._isExpanded;
     }
 
@@ -55,11 +55,11 @@ export class CategoryDataView {
         this._isEdited = !this._isEdited;
     }
 
-    public get isInAddingNewSubcategory(): Boolean {
+    public get isInAddingNewSubcategory(): boolean {
         return this._isInAddingNewSubcategory;
     }
 
-    public set isInAddingNewSubcategory(state: Boolean) {
+    public set isInAddingNewSubcategory(state: boolean) {
         this._isInAddingNewSubcategory = state;
     }
 }

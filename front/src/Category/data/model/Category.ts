@@ -1,11 +1,11 @@
 import { SubCategories } from "./SubCategory";
 
 export interface Category {
-    id: String|null,
-    name: String, 
-    position: Number,
-    isDeleted: Boolean,
-    lastModified: String|null,
+    id: string|null,
+    name: string, 
+    position: number,
+    isDeleted: boolean,
+    lastModified: string|null,
     subCategories: SubCategories,
 }
 

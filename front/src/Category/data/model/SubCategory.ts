@@ -1,9 +1,9 @@
 export interface SubCategory {
-    id: String|null,
-    name: String, 
-    position: Number,
-    isDeleted: Boolean,
-    lastModified: String|null,
+    id: string|null,
+    name: string, 
+    position: number,
+    isDeleted: boolean,
+    lastModified: string|null,
 }
 
 export type SubCategories = SubCategory[];

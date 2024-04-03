@@ -67,13 +67,16 @@
         "irregularExpenses": {
             "onCurrentYear": "Na bieżący rok",
             "unsavedChanges": "Masz niezapisane zmiany!",
-            "form": {
+            "expense": {
+                "name": "Wydatek",
+                "cost": "Koszt",
+                "category": "Kategoria",
                 "whim": "Zachcianka",
                 "addNew": "Dodaj nowy",
-                "save": "Zapisz",
                 "editName": "Edytuj nazwe",
                 "changeName": "Zmień nazwe"
-            }
+            },
+            "save": "Zapisz"
         },
         "personList": {
             "noPeople": "Nie ma tutaj jeszcze żadnej osoby. Dodaj pierwszą!",
