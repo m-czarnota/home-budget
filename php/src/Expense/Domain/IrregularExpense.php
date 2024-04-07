@@ -40,7 +40,10 @@ class IrregularExpense extends AbstractExpense
         return array_merge(
             parent::jsonSerialize(),
             [
-                'category' => $this->category->id,
+                'category' => [
+                    'id' => $this->category->id,
+                    'name' => $this->category->getName(),
+                ],
                 'position' => $this->position,
                 'plannedYear' => $this->plannedYear,
             ]

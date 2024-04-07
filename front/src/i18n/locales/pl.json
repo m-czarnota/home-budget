@@ -71,7 +71,7 @@
                 "name": "Wydatek",
                 "cost": "Koszt",
                 "category": "Kategoria",
-                "whim": "Zachcianka",
+                "wish": "Zachcianka",
                 "addNew": "Dodaj nowy",
                 "editName": "Edytuj nazwe",
                 "changeName": "Zmień nazwe"
@@ -96,8 +96,12 @@
         "prepareBudget": {
             "header": "Przygotuj budżet na następny miesiąc"
         },
-        "irregularExpenses": {
-            "header": "Nieregularne wydatki"
+        "irregularExpenseList": {
+            "header": "Nieregularne wydatki",
+            "description": "TL'DR",
+            "loadingError": "Nie można pobrać nieregularnych wydatków.",
+            "reload": "Spróbuj ponownie",
+            "loading": "Pobieranie nieregularnych wydatków"
         },
         "categoryListView": {
             "loadingError": "Nie można pobrać kategorii.",

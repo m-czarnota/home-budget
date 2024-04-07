@@ -21,6 +21,8 @@ import {
     faXmark,
     faPeopleRoof,
     faCloudArrowUp,
+    faChevronDown,
+    faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faCircleCheck,
@@ -48,6 +50,8 @@ library.add(
     faXmark,
     faPeopleRoof,
     faCloudArrowUp,
+    faChevronDown,
+    faCheck,
 );
 library.add(
     faCircleCheck,

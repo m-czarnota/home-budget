@@ -57,7 +57,7 @@
 
   form button[type="button"] {
     @apply app-button;
-    @apply bg-transparent;
+    @apply bg-slate-50;
     @apply text-slate-700;
   }
 

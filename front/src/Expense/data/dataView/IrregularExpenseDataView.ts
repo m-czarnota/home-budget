@@ -1,14 +1,17 @@
 import { IrregularExpense } from "../model/IrregularExpense";
+import { IrregularExpenseError } from "../model/IrregularExpensesError";
 
 export class IrregularExpenseDataView {
-    public isNew = false;
-
     private _isExpanded: Boolean = false;
     private _isEditingName: Boolean = false;
 
+    public errors: IrregularExpenseError;
+
     constructor(
         public expense: IrregularExpense,
-    ) {}
+    ) {
+        this.errors = this.generateEmptyErrors();
+    }
 
     public get isExpanded(): Boolean {
         return this._isExpanded;
@@ -28,5 +31,20 @@ export class IrregularExpenseDataView {
 
     public stringify(): string {
         return JSON.stringify(this.expense);
+    }
+
+    public resetErrors(): void {
+        this.errors = this.generateEmptyErrors();
+    }
+
+    private generateEmptyErrors(): IrregularExpenseError {
+        return {
+            hasError: false,
+            name: null,
+            position: null,
+            cost: null,
+            plannedYear: null,
+            category: null,
+        }
     }
 }

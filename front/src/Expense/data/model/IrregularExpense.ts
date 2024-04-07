@@ -1,10 +1,11 @@
-import { Category } from "../../../Category/data/model/Category";
+import { CategorySelect } from "../../../Category/data/model/CategorySelect";
 
 export interface IrregularExpense {
     id: string|null,
     name: string,
+    position: number,
     cost: number,
-    category: Category,
+    category: CategorySelect,
     isWish: boolean,
     plannedYear: number,
 };

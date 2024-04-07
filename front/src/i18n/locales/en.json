@@ -70,7 +70,7 @@
                 "name": "Expense",
                 "cost": "Cost",
                 "category": "Category",
-                "whim": "Whim",
+                "wish": "Whim",
                 "addNew": "Add new",
                 "editName": "Edit name",
                 "changeName": "Change name"
@@ -95,8 +95,12 @@
         "prepareBudget": {
             "header": "Prepare for a next month"
         },
-        "irregularExpenses": {
-            "header": "Irregular Expenses"
+        "irregularExpenseList": {
+            "header": "Irregular Expenses",
+            "description": "TL'DR",
+            "loadingError": "Cannot fetch irregular expenses.",
+            "reload": "Try again",
+            "loading": "Fetching irregular expenses"
         },
         "categoryListView": {
             "loadingError": "Cannot fetch categories.",

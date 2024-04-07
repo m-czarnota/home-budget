@@ -32,21 +32,24 @@ readonly class RequestToModelsMapper
         }
 
         $irregularExpenses = [];
-        $errors = [];
+        $requestErrorStates = [];
         $isError = false;
 
         foreach ($data as $irregularExpenseData) {
+            $irregularExpenseErrorDto = new RequestIrregularExpenseErrorInfoDto();
+            $requestErrorStates[] = $irregularExpenseErrorDto;
+
             try {
                 $categoryId = $irregularExpenseData['category'] ?? '';
                 $category = $this->categoryRepository->findOneById($categoryId);
 
                 if ($category === null) {
-                    $isError = true;
-                    $errors[] = ['category' => "Category `$categoryId` does not exist"];
+                    $irregularExpenseErrorDto->hasError = $isError = true;
+                    $irregularExpenseErrorDto->category = "Category `$categoryId` does not exist";
                     continue;
                 }
 
-                $irregularExpense = new IrregularExpense(
+                $irregularExpenses[] = new IrregularExpense(
                     $irregularExpenseData['id'] ?? null,
                     $irregularExpenseData['name'] ?? '',
                     $irregularExpenseData['cost'] ?? -1,
@@ -55,17 +58,20 @@ readonly class RequestToModelsMapper
                     $irregularExpenseData['isWish'] ?? false,
                     $irregularExpenseData['plannedYear'] ?? null,
                 );
-                $irregularExpenses[] = $irregularExpense;
-
-                $errors[] = [];
             } catch (ExpenseNotValidException $exception) {
                 $isError = true;
-                $errors[] = json_decode($exception->getMessage(), true);
+                $errors = json_decode($exception->getMessage(), true);
+
+                $irregularExpenseErrorDto->hasError = true;
+                $irregularExpenseErrorDto->name = $errors['name'] ?? null;
+                $irregularExpenseErrorDto->position = $errors['position'] ?? null;
+                $irregularExpenseErrorDto->cost = $errors['cost'] ?? null;
+                $irregularExpenseErrorDto->plannedYear = $errors['plannedYear'] ?? null;
             }
         }
 
         if ($isError) {
-            throw new RequestNotValidException(json_encode($errors));
+            throw new RequestNotValidException(json_encode($requestErrorStates));
         }
 
         return $irregularExpenses;

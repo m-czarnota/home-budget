@@ -29,33 +29,34 @@ readonly class RequestValidator
         $errors = [];
 
         foreach ($data as $irregularExpenseData) {
-            $irregularExpenseErrors = [];
+            $requestIrregularExpenseErrorInfoDto = $this->validateIrregularExpenseData($irregularExpenseData);
+            $errors[] = $requestIrregularExpenseErrorInfoDto;
 
-            if (!isset($irregularExpenseData['name'])) {
+            if ($requestIrregularExpenseErrorInfoDto->hasError) {
                 $isError = true;
-                $irregularExpenseErrors['name'] = 'Missing `name` parameter';
             }
-
-            if (!isset($irregularExpenseData['cost'])) {
-                $isError = true;
-                $irregularExpenseErrors['cost'] = 'Missing `cost` parameter';
-            }
-
-            if (!isset($irregularExpenseData['category'])) {
-                $isError = true;
-                $irregularExpenseErrors['category'] = 'Missing `category` parameter';
-            }
-
-            if (!isset($irregularExpenseData['position'])) {
-                $isError = true;
-                $irregularExpenseErrors['position'] = 'Missing `position` parameter';
-            }
-
-            $errors[] = $irregularExpenseErrors;
         }
 
-        return $isError
-            ? new ResponseError($errors)
-            : null;
+        return $isError ? new ResponseError($errors) : null;
+    }
+
+    private function validateIrregularExpenseData(array $irregularExpenseData): RequestIrregularExpenseErrorInfoDto
+    {
+        $nameError = isset($irregularExpenseData['name']) ? null : 'Missing `name` parameter';
+        $positionError = isset($irregularExpenseData['position']) ? null : 'Missing `position` parameter';
+        $costError = isset($irregularExpenseData['cost']) ? null : 'Missing `cost` parameter';
+        $categoryError = isset($irregularExpenseData['category']) ? null : 'Missing `category` parameter';
+        $plannedYearError = isset($irregularExpenseData['plannedYear']) ? null : 'Missing `plannedYear` parameter';
+
+        $isError = $nameError || $positionError || $costError || $categoryError || $plannedYearError;
+
+        return new RequestIrregularExpenseErrorInfoDto(
+            $isError,
+            $nameError,
+            $positionError,
+            $costError,
+            $plannedYearError,
+            $categoryError,
+        );
     }
 }

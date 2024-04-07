@@ -13,7 +13,6 @@ import { RequestNotAcceptableError } from '../../http-client/RequestNotAcceptabl
 const emit = defineEmits(['loadingError']);
 
 let peopleDv: PersonDataView[] = [];
-
 try {
     const peopleFromResponse = await PersonService.getPeople();
     peopleDv = reactive(peopleFromResponse.map((person: Person) => new PersonDataView(person))) as PersonDataView[];

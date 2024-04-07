@@ -6,6 +6,7 @@ export class ResponseIrregularExpenseFieldChecker {
     static readonly requiredFields = [
         'id',
         'name',
+        'position',
         'cost',
         'category',
         'isWish',

@@ -1,4 +1,3 @@
-import { ResponseCategoryFieldChecker } from "../../../Category/data/service/ResponseCategoryFieldChecker";
 import { HttpClient } from "../../../http-client/HttpClient";
 import { RequestNotAcceptableError } from "../../../http-client/RequestNotAcceptableError";
 import { IrregularExpense, IrregularExpenses } from "../model/IrregularExpense";
@@ -31,6 +30,9 @@ export class IrregularExpenseService {
 
     public static async updateExpenses(irregularExpenses: IrregularExpenses): Promise<IrregularExpenses> {
         const requestIrregularExpenses = IrregularExpenseService.mapIrregularExpensesToRequest(irregularExpenses);
+        for (const [index, expense] of requestIrregularExpenses.entries()) {
+            expense.position = index;
+        }
 
         const response = await HttpClient.put(IrregularExpenseService.RESOURCE, JSON.stringify(requestIrregularExpenses));
         const responseBody = response.body;
@@ -52,13 +54,12 @@ export class IrregularExpenseService {
             if (responseBody.length !== irregularExpenses.length) {
                 throw new Error(`Response errors count ${responseBody.length} is not suitable to categories count ${irregularExpenses.length}`);
             }
-            // TODO 👉 validation counts for subcategories - maybe after validation fields
 
             // TODO 👉 validation fields of response errors
-            throw new RequestNotAcceptableError(JSON.stringify(responseBody));
+            throw new RequestNotAcceptableError(JSON.stringify(responseBody.errors));
         }
 
-        ResponseCategoryFieldChecker.checkFields(responseCategories);
+        ResponseIrregularExpenseFieldChecker.checkFields(responseCategories);
 
         return IrregularExpenseService.mapResponseBodyToIrregularExpenses(responseCategories);
     }
@@ -67,8 +68,12 @@ export class IrregularExpenseService {
         return responseBody.map((expense: IrregularExpense) => ({
             id: expense.id,
             name: expense.name,
+            position: expense.position,
             cost: expense.cost,
-            category: {},
+            category: {
+                id: expense.category.id,
+                name: expense.category.name,
+            },
             isWish: expense.isWish,
             plannedYear: expense.plannedYear,
         }));
@@ -78,6 +83,7 @@ export class IrregularExpenseService {
         return irregularExpenses.map((irregularExpense: IrregularExpense) => ({
             id: irregularExpense.id,
             name: irregularExpense.name,
+            position: irregularExpense.position,
             cost: irregularExpense.cost,
             category: String(irregularExpense.category.id),
             isWish: irregularExpense.isWish,

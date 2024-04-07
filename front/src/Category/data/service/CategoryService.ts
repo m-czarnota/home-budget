@@ -1,6 +1,7 @@
 import { HttpClient } from "../../../http-client/HttpClient";
 import { RequestNotAcceptableError } from "../../../http-client/RequestNotAcceptableError";
 import { Categories, Category } from "../model/Category";
+import { CategoriesSelect } from "../model/CategorySelect";
 import { SubCategory } from "../model/SubCategory";
 import { ResponseCategoryFieldChecker } from "./ResponseCategoryFieldChecker";
 
@@ -26,6 +27,28 @@ export class CategoryService {
         } catch (error) {
             throw new Error(`Error while fetching categories. | ${error}`);
         }
+    }
+
+    public static async getCategoriesToSelect(): Promise<CategoriesSelect> {
+        const categories = await CategoryService.getCategories();
+        const categoriesSelect: CategoriesSelect = [];
+
+        for (const category of categories) {
+            if (category.subCategories.length !== 0) {
+                categoriesSelect.push(...category.subCategories.map(subCategory => ({
+                    id: String(subCategory.id),
+                    name: subCategory.name,
+                })));
+                continue;
+            }
+
+            categoriesSelect.push({
+                id: String(category.id),
+                name: category.name,
+            });
+        }
+
+        return categoriesSelect;
     }
 
     public static async updateCategories(categories: Categories): Promise<Categories> {
