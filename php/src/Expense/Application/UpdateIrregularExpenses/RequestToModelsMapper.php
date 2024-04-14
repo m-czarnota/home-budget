@@ -52,7 +52,7 @@ readonly class RequestToModelsMapper
                 $irregularExpenses[] = new IrregularExpense(
                     $irregularExpenseData['id'] ?? null,
                     $irregularExpenseData['name'] ?? '',
-                    $irregularExpenseData['cost'] ?? -1,
+                    floatval($irregularExpenseData['cost'] ?? -1),
                     $category,
                     $irregularExpenseData['position'] ?? -1,
                     $irregularExpenseData['isWish'] ?? false,

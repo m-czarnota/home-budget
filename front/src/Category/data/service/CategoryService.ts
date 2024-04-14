@@ -1,7 +1,7 @@
+import { VSelectData } from "../../../components/VSelect/VSelectData";
 import { HttpClient } from "../../../http-client/HttpClient";
 import { RequestNotAcceptableError } from "../../../http-client/RequestNotAcceptableError";
 import { Categories, Category } from "../model/Category";
-import { CategoriesSelect } from "../model/CategorySelect";
 import { SubCategory } from "../model/SubCategory";
 import { ResponseCategoryFieldChecker } from "./ResponseCategoryFieldChecker";
 
@@ -29,26 +29,18 @@ export class CategoryService {
         }
     }
 
-    public static async getCategoriesToSelect(): Promise<CategoriesSelect> {
+    public static async getCategoriesToSelect(): Promise<VSelectData> {
         const categories = await CategoryService.getCategories();
-        const categoriesSelect: CategoriesSelect = [];
 
-        for (const category of categories) {
-            if (category.subCategories.length !== 0) {
-                categoriesSelect.push(...category.subCategories.map(subCategory => ({
-                    id: String(subCategory.id),
-                    name: subCategory.name,
-                })));
-                continue;
-            }
-
-            categoriesSelect.push({
-                id: String(category.id),
-                name: category.name,
-            });
-        }
-
-        return categoriesSelect;
+        return categories.map((category: Category) => ({
+            id: category.id,
+            name: category.name,
+            subItems: category.subCategories.map((subCategory: SubCategory) => ({
+                id: subCategory.id,
+                name: subCategory.name,
+                subItems: [],
+            })),
+        }));
     }
 
     public static async updateCategories(categories: Categories): Promise<Categories> {

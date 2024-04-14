@@ -45,7 +45,7 @@ export class IrregularExpenseService {
             throw new Error('Cannot save sync changes');
         }
 
-        const responseCategories = response.body;
+        const responseCategories = responseBody;
         if (!(responseCategories instanceof Array)) {
             throw new Error(`Cannot read response. | ${responseCategories}`);
         }
@@ -56,7 +56,8 @@ export class IrregularExpenseService {
             }
 
             // TODO 👉 validation fields of response errors
-            throw new RequestNotAcceptableError(JSON.stringify(responseBody.errors));
+            console.log(responseBody)
+            throw new RequestNotAcceptableError(JSON.stringify(responseBody));
         }
 
         ResponseIrregularExpenseFieldChecker.checkFields(responseCategories);
@@ -73,6 +74,7 @@ export class IrregularExpenseService {
             category: {
                 id: expense.category.id,
                 name: expense.category.name,
+                subItems: [],
             },
             isWish: expense.isWish,
             plannedYear: expense.plannedYear,

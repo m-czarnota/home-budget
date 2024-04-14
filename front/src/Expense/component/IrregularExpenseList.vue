@@ -7,19 +7,21 @@ import VListItem from '../../components/List/VListItem.vue';
 import { IrregularExpense } from '../data/model/IrregularExpense';
 import { IrregularExpenseDataView } from '../data/dataView/IrregularExpenseDataView';
 import { reactive } from 'vue';
-import { CategoriesSelect, CategorySelect } from '../../Category/data/model/CategorySelect';
 import { CategoryService } from '../../Category/data/service/CategoryService';
-import VSelect from '../../components/VSelect.vue';
+import VSelect from '../../components/VSelect/VSelect.vue';
 import { IrregularExpenseService } from '../data/service/IrregularExpenseService';
 import { RequestNotAcceptableError } from '../../http-client/RequestNotAcceptableError';
 import { IrregularExpenseErrors } from '../data/model/IrregularExpensesError';
+import { VSelectData, VSelectItem } from '../../components/VSelect/VSelectData';
+import Alert from '../../components/Alert.vue';
 
 const emit = defineEmits(['loadingError']);
 
 // ----------------------------- handling response -----------------------------
-const categoriesSelect: CategoriesSelect = [{
+const categoriesSelect: VSelectData = [{
     id: null,
     name: 'Please select category',
+    subItems: [],
 }];
 try {
     const categories = await CategoryService.getCategoriesToSelect();
@@ -109,6 +111,7 @@ const submit = async () => {
         }
 
         if (e instanceof RequestNotAcceptableError) {
+            console.log(e.message)
             const errors = JSON.parse(e.message) as IrregularExpenseErrors;
             for (const [index, irregularExpenseDv] of irregularExpensesDv.entries()) {
                 const expenseErrors = errors[index];
@@ -189,7 +192,7 @@ const submit = async () => {
                                     <VSelect 
                                         :elements="categoriesSelect" 
                                         :selected="expenseDv.expense.category"
-                                        @changed="(category: CategorySelect) => expenseDv.expense.category = category"/>
+                                        @changed="(category: VSelectItem) => expenseDv.expense.category = category"/>
                                     <div class="text-error font-medium mt-2">
                                         {{ expenseDv.errors.category }}
                                     </div>
@@ -235,7 +238,7 @@ const submit = async () => {
                         {{ $t('component.irregularExpenses.expense.category') }}:
                         <VSelect 
                             :elements="categoriesSelect" 
-                            @changed="(category: CategorySelect) => newExpense.category = category"/>
+                            @changed="(category: VSelectItem) => newExpense.category = category"/>
                     </label>
                     <label>
                         <input type="checkbox" v-model="newExpense.isWish">

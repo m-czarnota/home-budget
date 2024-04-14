@@ -17,6 +17,8 @@ readonly class UpdateIrregularExpensesService
     public function execute(IrregularExpense ...$irregularExpenses): array
     {
         $responseIrregularExpenses = array_map(function (IrregularExpense $irregularExpense) {
+            // TODO check if selected category isn't main category which contains subcategories
+
             $existedIrregularExpense = $this->irregularExpenseRepository->findOneById($irregularExpense->id);
             if (!$existedIrregularExpense) {
                 $this->irregularExpenseRepository->add($irregularExpense);
