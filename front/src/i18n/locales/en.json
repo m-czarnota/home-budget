@@ -92,9 +92,6 @@
         }
     },
     "view": {
-        "prepareBudget": {
-            "header": "Prepare for a next month"
-        },
         "irregularExpenseList": {
             "header": "Irregular Expenses",
             "description": "TL'DR",
@@ -111,6 +108,13 @@
             "header": "List of people",
             "description": "Individuals are an important part of expenses. They allow transparency of expenses - which ones are shared and which ones involve only one individual person.",
             "loadingError": "Cannot fetch people.",
+            "reload": "Try again",
+            "loading": "Fetching categories"
+        },
+        "prepareBudgetView": {
+            "header": "Prepare for a next month",
+            "description": "TL'DR",
+            "loadingError": "Cannot fetch categories.",
             "reload": "Try again",
             "loading": "Fetching categories"
         }

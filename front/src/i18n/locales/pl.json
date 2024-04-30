@@ -93,9 +93,6 @@
         }  
     },
     "view": {
-        "prepareBudget": {
-            "header": "Przygotuj budżet na następny miesiąc"
-        },
         "irregularExpenseList": {
             "header": "Nieregularne wydatki",
             "description": "TL'DR",
@@ -108,12 +105,12 @@
             "reload": "Spróbuj ponownie",
             "loading": "Pobieranie kategorii"
         },
-        "personList": {
-            "header": "Lista osób",
-            "description": "Osoby są istotną częścią wydatków. Pozwalają na przejrzystość wydatków - które z nich są wspólne, a które dotyczą tylko jednej, poszczególnej osoby.",
-            "loadingError": "Nie można pobrać osób.",
-            "reload": "Spróbuj ponownie",
-            "loading": "Pobieranie osób"
+        "prepareBudgetView": {
+            "header": "Prepare for a next month",
+            "description": "TL'DR",
+            "loadingError": "Cannot fetch categories.",
+            "reload": "Try again",
+            "loading": "Fetching categories"
         }
     },
     "form": {

@@ -30,6 +30,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Expense/Infrastructure/ORM/Mapping'
                 prefix: 'App\Expense\Domain'
                 alias: Expense
+            Budget:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Budget/Infrastructure/ORM/Mapping'
+                prefix: 'App\Budget\Domain'
+                alias: Budget
 
 when@prod:
     doctrine:

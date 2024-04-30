@@ -15,7 +15,7 @@ const routes = {
     },
     prepare_budget: {
         path: '/prepare-budget',
-        component: () => import('../Budget/view/PrepareBudget.vue'),
+        component: () => import('../Budget/view/PrepareBudgetView.vue'),
     },
     irregular_expenses: {
         path: '/irregular-expenses',
