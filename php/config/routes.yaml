@@ -21,3 +21,11 @@ expense_controllers:
     type: attribute
     prefix: /api/v1
     trailing_slash_on_root: false
+
+budget_controllers:
+    resource:
+        path: ../src/Budget/Application/
+        namespace: App\Budget\Application
+    type: attribute
+    prefix: /api/v1
+    trailing_slash_on_root: false

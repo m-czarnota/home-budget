@@ -22,9 +22,18 @@ readonly class RequestValidator
         $isBudgetEntriesError = false;
         $budgetEntriesErrors = [];
 
-        foreach ($data as $budgetEntryData) {
+        foreach ($data['entries'] as $budgetEntryData) {
             $budgetEntryErrorInfoDto = $this->validateBudgetEntryData($budgetEntryData);
             $budgetEntriesErrors[] = $budgetEntryErrorInfoDto;
+
+            foreach ($budgetEntryData['subEntries'] as $subEntryData) {
+                $budgetSubEntryErrorInfoDto = $this->validateBudgetEntryData($subEntryData);
+                $budgetEntryErrorInfoDto->subEntries[] = $budgetSubEntryErrorInfoDto;
+
+                if ($budgetSubEntryErrorInfoDto->hasError) {
+                    $isBudgetEntriesError = true;
+                }
+            }
 
             if ($budgetEntryErrorInfoDto->hasError) {
                 $isBudgetEntriesError = true;
@@ -44,18 +53,16 @@ readonly class RequestValidator
     private function validateBudgetEntryData(array $budgetEntryData): RequestBudgetEntryErrorInfoDto
     {
         $idError = isset($budgetEntryData['id']) ? null : 'Missing `id` parameter';
-        $categoryError = isset($budgetEntryData['category']) ? null : 'Missing `category` parameter';
+        $categoryError = isset($budgetEntryData['categoryId']) ? null : 'Missing `categoryId` parameter';
         $costError = isset($budgetEntryData['cost']) ? null : 'Missing `cost` parameter';
-        $plannedMonthError = isset($budgetEntryData['plannedMoth']) ? null : 'Missing `plannedMonth` parameter';
 
-        $isError = $idError || $categoryError || $costError || $plannedMonthError;
+        $isError = $idError || $categoryError || $costError;
 
         return new RequestBudgetEntryErrorInfoDto(
             $isError,
             $idError,
             $categoryError,
             $costError,
-            $plannedMonthError,
         );
     }
 }

@@ -9,10 +9,10 @@ class BadRequestResponse
     public readonly bool $hasError;
 
     public function __construct(
-        public ?string $monthError = null,
+        public ?string $month = null,
 
-        /** @var array<int, RequestBudgetEntryErrorInfoDto> $errors */
-        public array $errors = [],
+        /** @var array<int, RequestBudgetEntryErrorInfoDto> $entries */
+        public array $entries = [],
     ) {
         $this->hasError = true;
     }

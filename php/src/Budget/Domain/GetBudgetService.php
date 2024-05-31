@@ -37,12 +37,22 @@ readonly class GetBudgetService
         $budget = new Budget($period);
         
         foreach ($categories as $category) {
-            $budget->addEntry(new BudgetEntry(
+            $budgetEntry = new BudgetEntry(
                 null,
                 0,
                 $category,
                 $period->startDate,
-            ));
+            );
+            $budget->addEntry($budgetEntry);
+
+            foreach ($category->getSubCategories() as $subCategory) {
+                $budgetEntry->addSubEntry(new BudgetEntry(
+                    null,
+                    0,
+                    $subCategory,
+                    $period->startDate,
+                ));
+            }
         }
 
         return $budget;

@@ -12,13 +12,22 @@ readonly class BudgetToResponseDtoMapper
         return new BudgetResponseDto(
             intval($budget->period->startDate->format('m')),  // broken demeter law,
             array_map(
-                fn(BudgetEntry $entry) => new BudgetEntryResponseDto(
-                    $entry->id,
-                    $entry->getCost(),
-                    $entry->category->id,
-                    $entry->category->getName(),
-                ),
+                fn(BudgetEntry $entry) => self::mapBudgetEntryToBudgetEntryResponseDto($entry),
                 $budget->getEntries()
+            ),
+        );
+    }
+
+    private static function mapBudgetEntryToBudgetEntryResponseDto(BudgetEntry $budgetEntry): BudgetEntryResponseDto
+    {
+        return new BudgetEntryResponseDto(
+            $budgetEntry->id,
+            $budgetEntry->getCost(),
+            $budgetEntry->category->id,
+            $budgetEntry->category->getName(),
+            array_map(
+                fn(BudgetEntry $subEntry) => self::mapBudgetEntryToBudgetEntryResponseDto($subEntry),
+                $budgetEntry->getSubEntries()
             ),
         );
     }

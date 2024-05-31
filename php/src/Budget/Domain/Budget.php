@@ -14,7 +14,6 @@ class Budget
 
     public function update(self $budget): void
     {
-        // adding new entries or update existing
         foreach ($budget->getEntries() as $entry) {
             $existedEntry = $this->getEntry($entry->id);
             if ($existedEntry) {
@@ -23,15 +22,6 @@ class Budget
             }
 
             $this->addEntry($entry);
-        }
-
-        // removing entries that not exist in updated budget
-        foreach ($this->getEntries() as $entry) {
-            if ($budget->getEntry($entry->id)) {
-                continue;
-            }
-
-            unset($this->entries[$entry->id]);
         }
     }
 

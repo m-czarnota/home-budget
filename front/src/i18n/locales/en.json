@@ -58,10 +58,9 @@
             },
             "noCategories": "There are no categories here yet. Add your first thought!"
         },
-        "budgetCreate": {
-            "form": {
-                "create": "Create budget"
-            }
+        "prepareBudget": {
+            "noCategories": "You cannot prepare a budget, because you don't have any category!",
+            "addFirstCategories": "Add some of them!"
         },
         "irregularExpenses": {
             "onCurrentYear": "On current year",

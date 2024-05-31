@@ -39,7 +39,7 @@ readonly class RequestToModelsMapper
         $month = intval($data['month']);
 
         if ($month < 1 || $month > 12) {
-            $badRequestResponse->monthError = "Month `$month` is not valid month number. Allowed months are in range 1-12.";
+            $badRequestResponse->month = "Month `$month` is not valid month number. Allowed months are in range 1-12.";
         }
 
         $budgetStartDate = new DateTime();
@@ -50,12 +50,12 @@ readonly class RequestToModelsMapper
         $budgetEntries = [];
         $isBudgetEntryError = [];
 
-        foreach ($data as $budgetEntryData) {
+        foreach ($data['entries'] as $budgetEntryData) {
             $budgetEntryErrorIntoDto = new RequestBudgetEntryErrorInfoDto();
-            $badRequestResponse->errors[] = $budgetEntryErrorIntoDto;
+            $badRequestResponse->entries[] = $budgetEntryErrorIntoDto;
 
             try {
-                $categoryId = $budgetEntryData['category'] ?? '';
+                $categoryId = $budgetEntryData['categoryId'] ?? '';
                 $category = $this->categoryRepository->findOneById($categoryId);
 
                 if ($category === null) {
@@ -64,13 +64,47 @@ readonly class RequestToModelsMapper
                     continue;
                 }
 
-                $budgetEntries[] = new BudgetEntry(
+                $budgetEntry = new BudgetEntry(
                     $budgetEntryData['id'] ?? null,
                     $budgetEntryData['cost'] ?? null,
                     $category,
                     DateTimeImmutable::createFromInterface($budgetStartDate),
                     null,
                 );
+                $budgetEntries[] = $budgetEntry;
+
+                // sub entries
+                foreach ($budgetEntryData['subEntries'] as $subEntryBudgetData) {
+                    $budgetSubEntryErrorIntoDto = new RequestBudgetEntryErrorInfoDto();
+                    $budgetEntryErrorIntoDto->subEntries[] = $budgetSubEntryErrorIntoDto;
+
+                    try {
+                        $categoryId = $subEntryBudgetData['categoryId'] ?? '';
+                        $category = $this->categoryRepository->findOneById($categoryId);
+
+                        if ($category === null) {
+                            $budgetSubEntryErrorIntoDto->hasError = $isBudgetEntryError = true;
+                            $budgetSubEntryErrorIntoDto->category = "Category `$categoryId` does not exist";
+                            continue;
+                        }
+
+                        $budgetSubEntry = new BudgetEntry(
+                            $subEntryBudgetData['id'] ?? null,
+                            $subEntryBudgetData['cost'] ?? null,
+                            $category,
+                            DateTimeImmutable::createFromInterface($budgetStartDate),
+                            null,
+                        );
+                        $budgetEntry->addSubEntry($budgetSubEntry);
+                    } catch (BudgetEntryIsNotValidException $exception) {
+                        $isBudgetEntryError = true;
+                        $errors = json_decode($exception->getMessage(), true);
+
+                        $budgetSubEntryErrorIntoDto->hasError = true;
+                        $budgetSubEntryErrorIntoDto->id = $errors['id'] ?? null;
+                        $budgetSubEntryErrorIntoDto->cost = $errors['cost'] ?? null;
+                    }
+                }
             } catch (BudgetEntryIsNotValidException $exception) {
                 $isBudgetEntryError = true;
                 $errors = json_decode($exception->getMessage(), true);
@@ -81,7 +115,7 @@ readonly class RequestToModelsMapper
             }
         }
 
-        if ($isBudgetEntryError || $badRequestResponse->monthError) {
+        if ($isBudgetEntryError || $badRequestResponse->month) {
             throw new RequestNotValidException(json_encode($badRequestResponse));
         }
 

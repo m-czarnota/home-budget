@@ -9,7 +9,9 @@ class BudgetEntryResponseDto
         public float $cost,
         public string $categoryId,
         public string $categoryName,
-    )
-    {
+
+        /** @var array<int, BudgetEntryResponseDto> $subEntries */
+        public array $subEntries = [],
+    ) {
     }
 }

@@ -59,10 +59,9 @@
             },
             "noCategories": "Nie ma tutaj jeszcze żadnej kategorii. Dodaj pierwszą!"
         },
-        "budgetCreate": {
-            "form": {
-                "create": "Utwórz budżet"
-            }
+        "prepareBudget": {
+            "noCategories": "Nie możesz przygotować budżetu, bo nie masz żadnej kategorii!",
+            "addFirstCategories": "Dodaj kilka z nich!"
         },
         "irregularExpenses": {
             "onCurrentYear": "Na bieżący rok",

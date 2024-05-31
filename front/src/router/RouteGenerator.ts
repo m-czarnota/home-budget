@@ -23,7 +23,7 @@ export class RouteGenerator {
         return allRoutes;
     }
 
-    public static getPath(name: String): String {
+    public static getPath(name: string): string {
         const route: Array<Object> = routes[name];
         if (!route) {
             throw new RangeError(`Route with name ${name} doesn't exist`);

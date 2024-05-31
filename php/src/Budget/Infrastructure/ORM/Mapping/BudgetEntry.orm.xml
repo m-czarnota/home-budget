@@ -5,10 +5,16 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <entity name="App\Budget\Domain\BudgetEntry" table="budget_entry" repository-class="App\Budget\Infrastructure\ORM\DoctrineBudgetEntryRepository">
         <id name="id" type="string" length="50" column="id"/>
-        <field name="cost" column="cost" type="decimal"/>
+        <field name="cost" column="cost" type="float"/>
         <field name="plannedTime" column="planned_time" type="datetime_immutable"/>
         <field name="lastModified" column="last_modified" type="datetime_immutable"/>
 
         <many-to-one field="category" target-entity="App\Category\Domain\Category"/>
+
+        <one-to-many field="subEntries" target-entity="App\Budget\Domain\BudgetEntry" mapped-by="parent" index-by="id">
+        </one-to-many>
+        <many-to-one field="parent" target-entity="App\Budget\Domain\BudgetEntry" inversed-by="subEntries">
+            <join-column name="parent"/>
+        </many-to-one>
     </entity>
 </doctrine-mapping>

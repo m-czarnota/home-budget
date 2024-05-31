@@ -5,15 +5,22 @@ namespace App\Budget\Domain;
 use App\Category\Domain\Category;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 
 class BudgetEntry
 {
     public readonly string $id;
-    private string $cost;
+    private float $cost;
     public readonly Category $category;
-    public readonly DateTimeImmutable $plannedTime;
+    public readonly DateTimeInterface $plannedTime;
     private DateTimeImmutable $lastModified;
+
+    /** @var Collection<string, self> $subEntries */
+    private Collection $subEntries;
+
+    private ?self $parent = null;
 
     /**
      * @throws BudgetEntryIsNotValidException
@@ -22,7 +29,7 @@ class BudgetEntry
         ?string $id,
         float $cost,
         Category $category,
-        DateTimeImmutable $plannedTime,
+        DateTimeInterface $plannedTime,
         ?DateTimeInterface $lastModified = null,
     ) {
         $this->id = $id ?? Uuid::uuid7()->toString();
@@ -30,6 +37,7 @@ class BudgetEntry
         $this->category = $category;
         $this->plannedTime = $plannedTime;
         $this->lastModified = $lastModified ?? new DateTimeImmutable();
+        $this->subEntries = new ArrayCollection();
 
         $errors = $this->validate();
         if (!empty($errors)) {
@@ -40,8 +48,11 @@ class BudgetEntry
     public function update(self $budgetEntry): void
     {
         $this->cost = $budgetEntry->getCost();
-
         $this->lastModified = new DateTimeImmutable();
+
+        foreach ($this->subEntries as $key => $subEntry) {
+            $subEntry->update($budgetEntry->getEntry($key));
+        }
     }
 
     public function validate(): array
@@ -65,6 +76,26 @@ class BudgetEntry
         }
 
         return $errors;
+    }
+
+    public function addSubEntry(self $subEntry): self
+    {
+        $this->subEntries->set($subEntry->id, $subEntry);
+
+        return $this;
+    }
+
+    /**
+     * @return array<int, BudgetEntry>
+     */
+    public function getSubEntries(): array
+    {
+        return $this->subEntries->getValues();
+    }
+
+    public function getEntry(string $id): ?self
+    {
+        return $this->subEntries->get($id);
     }
 
     public function getCost(): float
