@@ -7,19 +7,19 @@ use DateTimeInterface;
 
 class PeriodUtil
 {
-    public static function startDateOfMonth(int $month): DateTimeInterface
+    public static function startDateOfMonthInYear(int $month, int $year): DateTimeInterface
     {
         $startDate = new DateTime();
         $startDate
-            ->setDate($startDate->format('Y'), $month, 1)
+            ->setDate($year, $month, 1)
             ->setTime(0, 0, 0, 0);
 
         return $startDate;
     }
 
-    public static function endDateOfMonth(int $month): DateTimeInterface
+    public static function endDateOfMonthInYear(int $month, int $year): DateTimeInterface
     {
-        $startDate = self::startDateOfMonth($month);
+        $startDate = self::startDateOfMonthInYear($month, $year);
         $startDate->modify('last day of this month');
 
         return $startDate;

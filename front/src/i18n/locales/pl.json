@@ -61,7 +61,12 @@
         },
         "prepareBudget": {
             "noCategories": "Nie możesz przygotować budżetu, bo nie masz żadnej kategorii!",
-            "addFirstCategories": "Dodaj kilka z nich!"
+            "addFirstCategories": "Dodaj kilka z nich!",
+            "successSave": "Budżet zapisany pomyślnie.",
+            "errorSave": "Nie można zapisać budżetu. Spróbuj ponownie.",
+            "unsavedChanges": "Masz niezapisane zmiany!",
+            "save": "Zapisz",
+            "budgetForMonth": "Budżet na"
         },
         "irregularExpenses": {
             "onCurrentYear": "Na bieżący rok",

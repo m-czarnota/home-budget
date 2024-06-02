@@ -7,25 +7,24 @@ import { ResponseBudgetFieldChecker } from "./ResponseBudgetFieldChecker";
 export class BudgetService {
     static readonly RESOURCE = '/budget';
 
-    public static async getBudget(): Promise<Budget> {
-        try {
-            const response = await HttpClient.get(BudgetService.RESOURCE);      
+    public static async getBudgetForCurrentMonth(): Promise<Budget> {
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        const year = now.getFullYear();
 
-            if (!response.isOk) {
-                throw new Error("Cannot fetch categories. Try again later.");
-            }
+        const url = `${BudgetService.RESOURCE}/?month=${month}&year=${year}`;
+        
+        return await BudgetService.getBudget(url);
+    }
 
-            const budget = response.body;
-            if (!(budget instanceof Object)) {
-                throw new Error("Cannot fetch categories. Try again later.");
-            }
-            
-            ResponseBudgetFieldChecker.checkFields(budget);
+    public static async getBudgetForNextMonth(): Promise<Budget> {
+        const now = new Date();
+        const month = now.getMonth() + 1 + 1;
+        const year = now.getFullYear();
 
-            return BudgetService.mapResponseBodyToBudget(budget);
-        } catch (error) {
-            throw new Error(`Error while fetching categories. | ${error}`);
-        }
+        const url = `${BudgetService.RESOURCE}/?month=${month}&year=${year}`;
+        
+        return await BudgetService.getBudget(url);
     }
 
     public static async update(budget: Budget): Promise<Budget> {
@@ -55,6 +54,27 @@ export class BudgetService {
         ResponseBudgetFieldChecker.checkFields(responseBudget);
 
         return BudgetService.mapResponseBodyToBudget(budget);
+    }
+
+    private static async getBudget(url: string): Promise<Budget> {
+        try {
+            const response = await HttpClient.get(url);      
+
+            if (!response.isOk) {
+                throw new Error("Cannot fetch categories. Try again later.");
+            }
+
+            const budget = response.body;
+            if (!(budget instanceof Object)) {
+                throw new Error("Cannot fetch categories. Try again later.");
+            }
+            
+            ResponseBudgetFieldChecker.checkFields(budget);
+
+            return BudgetService.mapResponseBodyToBudget(budget);
+        } catch (error) {
+            throw new Error(`Error while fetching categories. | ${error}`);
+        }
     }
 
     private static mapResponseBodyToBudget(responseBody: any): Budget {

@@ -60,7 +60,12 @@
         },
         "prepareBudget": {
             "noCategories": "You cannot prepare a budget, because you don't have any category!",
-            "addFirstCategories": "Add some of them!"
+            "addFirstCategories": "Add some of them!",
+            "successSave": "Budget successfully saved.",
+            "errorSave": "Cannot save budget. Try again.",
+            "unsavedChanges": "You have unsaved changes!",
+            "save": "Save",
+            "budgetForMonth": "Budget for"
         },
         "irregularExpenses": {
             "onCurrentYear": "On current year",

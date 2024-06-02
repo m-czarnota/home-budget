@@ -16,17 +16,8 @@ readonly class GetBudgetService
     ) {
     }
 
-    public function execute(?BudgetPeriod $period): Budget
+    public function execute(BudgetPeriod $period): Budget
     {
-        if (!$period) {
-            $now = new DateTimeImmutable();
-            $month = intval($now->format('m'));
-            $period = new BudgetPeriod(
-                PeriodUtil::startDateOfMonth($month),
-                PeriodUtil::endDateOfMonth($month),
-            );
-        }
-
         // TODO also read from cache
         $budget = $this->budgetEntryRepository->findByPeriod($period);
         if (!empty($budget)) {
