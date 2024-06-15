@@ -7,23 +7,23 @@ const routes = {
     },
     current_expenses: {
         path: '/current-expenses',
-        component: () => import('../Expense/view/CurrentExpense.vue'),
+        component: () => import('@/domains/Expense/view/ExpenseView.vue'),
     },
     category_list: {
         path: '/category-list',
-        component: () => import('../Category/view/CategoryListView.vue'),
+        component: () => import('@/domains/Category/view/CategoryListView.vue'),
     },
     prepare_budget: {
         path: '/prepare-budget',
-        component: () => import('../Budget/view/PrepareBudgetView.vue'),
+        component: () => import('@/domains/Budget/view/PrepareBudgetView.vue'),
     },
     irregular_expenses: {
         path: '/irregular-expenses',
-        component: () => import('../Expense/view/IrregularExpenseListView.vue'),
+        component: () => import('@/domains/IrregularExpense/view/IrregularExpenseListView.vue'),
     },
     people: {
         path: '/people',
-        component: () => import('../Person/view/PersonListView.vue'),
+        component: () => import('@/domains/Person/view/PersonListView.vue'),
     },
 };
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SidebarLink from './SidebarLink.vue';
 import { ref, computed, provide } from 'vue';
-import { RouteGenerator } from '../../router/RouteGenerator';
+import { RouteGenerator } from '@/router/RouteGenerator';
 
 const collapsed = ref(false);
 const toggleSidebar = () => (collapsed.value = !collapsed.value);
